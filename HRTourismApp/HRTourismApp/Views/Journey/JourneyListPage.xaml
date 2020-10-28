@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HRTourismApp.Views.Journey.JourneyListPage"
+             Title="Yolculuklar">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Yeni Yolculuk" Command="{Binding AddCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <ListView x:Name="ListViewJourney"
+                  ItemsSource="{Binding JourneyList}"
+                  ItemTapped="ListViewJourney_ItemTapped" 
+                  CachingStrategy="RecycleElement"
+                     SeparatorVisibility="None"
+        BackgroundColor="{ DynamicResource BasePageColor }"
+        HasUnevenRows="true">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="10">
+                            <Label Text="{Binding Id}" />
+                            <Label Text="{Binding From}" />
+                            <Label Text="{Binding To}" />
+                            <Label Text="{Binding StartDate}" />
+                            <Label Text="{Binding FinishDate}" />
+                            <Label Text="{Binding Fees}" />
+                            <Button Text="Yolcular" Command="{Binding ShowPassengers}" />
+                           
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>        
+        
+    </ContentPage.Content>
+
+</ContentPage>
+
+
+

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HRTourismApp.Views.Passenger.PassengerListPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Yeni Yolculuk" Command="{Binding AddCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <ListView x:Name="ListViewPassenger"
+                  ItemsSource="{Binding PassengerList}"
+                  ItemTapped="ListViewPassenger_ItemTapped" 
+                  CachingStrategy="RecycleElement"
+                     SeparatorVisibility="None"
+        BackgroundColor="{ DynamicResource BasePageColor }"
+        HasUnevenRows="true">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Margin="10">
+                            <Label Text="{Binding Id}" />
+                            <Label Text="{Binding JourneyId}" />
+                            <Label Text="{Binding LastName}" />
+                            <Label Text="{Binding FirstName}" />
+                            <Label Text="{Binding DocumentNo}" />
+                            <Label Text="{Binding Phone}" />
+                            <Label Text="{Binding CountryCode}" />
+                            <Label Text="{Binding Gender}" />
+                            <Label Text="{Binding HesKodu}" />                            
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </ContentPage.Content>
+
+</ContentPage>
+
+

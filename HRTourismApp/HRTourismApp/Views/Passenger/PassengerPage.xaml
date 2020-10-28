@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HRTourismApp.Views.Passenger.PassengerPage">
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+
+            <Label Text="Adi"/>
+            <Entry Text="{Binding Passenger.FirstName}"></Entry>
+            
+            <Label Text="Soyadi"/>
+            <Entry Text="{Binding Passenger.LastName}"></Entry>
+            
+            <Label Text="Uyruk"/>
+            <Entry Text="{Binding Passenger.CountryCode}"></Entry>
+            
+            <Label Text="TCKN\Pasaport"/>
+                <Entry Text="{Binding Passenger.DocumentNo}"></Entry>
+            
+            <Label Text="Telefon"/>
+                <Entry Text="{Binding Passenger.Phone}"/>
+            
+            <Label Text="Hes Kodu"/>
+                <Entry Text="{Binding Passenger.HesKodu}"/>
+            
+            <Label Text="Cinsiyet"/>
+            <Entry Text="{Binding Passenger.Gender}"/>
+
+            <Button x:Name="btnPassenger" Command="{Binding AddPassengerCommand}" BackgroundColor="LightGreen"/>
+            <Button x:Name="btnNFC" Command="{Binding AddPassengerCommand}" BackgroundColor="LightGreen"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

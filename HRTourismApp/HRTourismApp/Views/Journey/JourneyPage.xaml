@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sys="clr-namespace:System;assembly=netstandard"
+             mc:Ignorable="d"
+             x:Class="HRTourismApp.Views.Journey.JourneyPage">
+    <ContentPage.Content>
+        <StackLayout Margin="10">
+
+            <Label Text="Başlangıç Yeri"/>
+            <Entry Text="{Binding Journey.From}"/>
+            <Label Text="Bitiş Yeri"/><Entry Text="{Binding Journey.To}"/>
+            <Label Text="Baslangic Tarihi"/>
+            <DatePicker Date="{Binding Journey.StartDate}" VerticalOptions="CenterAndExpand" >
+                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                <DatePicker.MinimumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Jan 1 2000</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MinimumDate>
+                <DatePicker.MaximumDate>
+                    <sys:DateTime x:FactoryMethod="Parse">
+                        <x:Arguments>
+                            <x:String>Dec 31 2050</x:String>
+                        </x:Arguments>
+                    </sys:DateTime>
+                </DatePicker.MaximumDate>
+            </DatePicker>
+            <TimePicker Time="{Binding Journey.StartDateTime}" Format="T" />
+            <Label Text="Bitiş Tarihi"/>
+            <DatePicker Date="{Binding Journey.FinishDate}" Format="MMMM d,yyyy"/>
+            <TimePicker Time="{Binding Journey.FinishDateTime}" Format="T" />
+            <Label Text="Şöför"/>
+            <Entry Text="{Binding Journey.DriverId}"/>
+            <Label Text="Araç"/>
+            <Entry Text="{Binding Journey.VehicleId}"/>
+            <Label Text="Ücret"/>
+            <Entry Text="{Binding Journey.Fees}"/>            
+            <Button x:Name="btnJourney" Command="{Binding JourneyCommand}" BackgroundColor="LightGreen"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

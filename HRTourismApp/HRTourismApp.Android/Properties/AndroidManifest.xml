@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="com.hrh.app1" android:versionCode="1" android:versionName="1">
+	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="27" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.CAMERA" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<application android:label="HRTourismApp.Android" android:icon="@drawable/xamarin_logo">
+		<provider android:name="android.support.v4.content.FileProvider" android:authorities="com.hrh.app1.fileprovider" android:exported="false" android:grantUriPermissions="true">
+			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
+		</provider>
+	</application>
+</manifest>
