@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using HRTourismApp.iOS.Services;
+using HRTourismApp.Services;
 using UIKit;
+using Xamarin.Forms;
 
 namespace HRTourismApp.iOS
 {
@@ -26,6 +29,8 @@ namespace HRTourismApp.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
+            DependencyService.Register<ILocalFileProvider, LocalFileProviderService>();
+            DependencyService.Register<IDeleteFromFile, DeleFromFile>();
             return base.FinishedLaunching(app, options);
         }
     }

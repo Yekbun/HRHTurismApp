@@ -7,6 +7,7 @@
             <Button x:Name="takePhoto" Text="Take Photo"/>
             <Button x:Name="pickPhoto" Text="Pick Photo"/>
             <Image x:Name="image"/>
+            <Label x:Name="lblResult" Text="Henuz bisey yok"></Label>
         </StackLayout>
     </ScrollView>
 </ContentPage>

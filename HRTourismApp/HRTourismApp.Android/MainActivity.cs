@@ -6,6 +6,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Xamarin.Forms;
+using HRTourismApp.Services;
+using HRTourismApp.Droid.Services;
 
 namespace HRTourismApp.Droid
 {
@@ -21,7 +24,11 @@ namespace HRTourismApp.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            DependencyService.Register<ILocalFileProvider, LocalFileProviderService>();
+            DependencyService.Register<IDeleteFromFile, DeleFromFile>();
             LoadApplication(new App());
+          
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
