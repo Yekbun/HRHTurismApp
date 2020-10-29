@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Controls\" />
+    <Folder Include="Views\OCR\" />
   </ItemGroup>
 
   <ItemGroup>
