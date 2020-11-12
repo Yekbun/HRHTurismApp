@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using HRTourismApp.ViewModels.Passenger;
-using HRTourismApp.Models.HRTourismApp.Models;
+using HRTourismApp.Models;
 
 namespace HRTourismApp.Views.Passenger
 {
@@ -26,7 +26,7 @@ namespace HRTourismApp.Views.Passenger
 
         private void ListViewPassenger_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            PassengerModel item = (PassengerModel)e.Item;
+            PassengerDTO item = (PassengerDTO)e.Item;
             if (item == null)
                 return;
 

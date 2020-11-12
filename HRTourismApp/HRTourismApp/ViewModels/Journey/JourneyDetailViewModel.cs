@@ -6,13 +6,14 @@ using Xamarin.Forms;
 using HRTourismApp.Helpers;
 using HRTourismApp.Services;
 using HRTourismApp.Views.Journey;
+using HRTourismApp.Models.Core;
 
 namespace HRTourismApp.ViewModels.Journey
 {
     public class JourneyDetailViewModel
     {
         // Data
-        public Models.JourneyModal Journey { get; set; }
+        public JourneyDTO Journey { get; set; }
 
         // Commands
         public ICommand UpdateJourneyCommand
@@ -50,7 +51,7 @@ namespace HRTourismApp.ViewModels.Journey
                 bool isDeleted = await Application.Current.MainPage.DisplayAlert("Warning", "Are you sure want to delete this item?", "OK", "Cancel");
                 if (isDeleted)
                 {
-                    int deletedId = await journeyService.DeleteAsync(Journey);
+                    int deletedId = await journeyService.DeleteAsync(Journey.Id,Journey.UserId,Journey.Description);
                     if (deletedId > 0)
                     {
                         MessageNotificationHelper.ShowMessageSuccess("Booking has been deleted");

@@ -8,7 +8,8 @@ namespace HRTourismApp.Helpers
     {
         public static async void WriteLog(Exception exception, CancellationToken cancellationToken = default)
         {
-            string endpoint = Constant.BASE_API_URL + "/error/log-error";
+            //TODO:
+            string endpoint = Constants.BASE_API_URL + "/error/log-error";
 
             try
             {

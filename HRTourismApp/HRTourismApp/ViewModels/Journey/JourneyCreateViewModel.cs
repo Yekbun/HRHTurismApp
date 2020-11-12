@@ -5,12 +5,13 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using HRTourismApp.Helpers;
 using HRTourismApp.Services;
+using HRTourismApp.Models.Core;
 
 namespace HRTourismApp.ViewModels.Journey
 {
    public class JourneyCreateViewModel
     {
-        public Models.JourneyModal Journey { get; set; }
+        public JourneyDTO Journey { get; set; }
 
         // Commands
         public ICommand JourneyCommand
@@ -26,7 +27,7 @@ namespace HRTourismApp.ViewModels.Journey
 
         public JourneyCreateViewModel()
         {
-            Journey = new Models.JourneyModal();
+            Journey = new JourneyDTO();
 
             journeyService = new JourneyService();
         }

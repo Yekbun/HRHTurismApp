@@ -1,17 +1,17 @@
-﻿using HRTourismApp.Models.HRTourismApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using HRTourismApp.Helpers;
 using HRTourismApp.Services;
+using HRTourismApp.Models;
 
 namespace HRTourismApp.ViewModels.Passenger
 {
    public class PassengerUpdateViewModel
     {
-        public PassengerModel Passenger { get; set; }
+        public PassengerDTO Passenger { get; set; }
 
         // Commands
         public ICommand CancelPassengerCommand
@@ -24,7 +24,7 @@ namespace HRTourismApp.ViewModels.Passenger
 
         public PassengerUpdateViewModel()
         {
-            Passenger = new PassengerModel();
+            Passenger = new PassengerDTO();
             _passengerService = new PassengerService();
         }
 

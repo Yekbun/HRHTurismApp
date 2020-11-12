@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using HRTourismApp.ViewModels.Journey;
+using HRTourismApp.Models.Core;
 
 namespace HRTourismApp.Views.Journey
 {
@@ -33,7 +34,7 @@ namespace HRTourismApp.Views.Journey
 
         private void ListViewJourney_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            Models.JourneyModal item = (Models.JourneyModal)e.Item;
+            JourneyDTO item = (JourneyDTO)e.Item;
             if (item == null)
                 return;
 

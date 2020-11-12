@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using HRTourismApp.ViewModels.Passenger;
-using HRTourismApp.Models.HRTourismApp.Models;
+using HRTourismApp.Models;
 
 namespace HRTourismApp.Views.Passenger
 {
@@ -13,7 +13,7 @@ namespace HRTourismApp.Views.Passenger
         {
             InitializeComponent();
         }
-        public PassengerDetailsPage(PassengerModel passenger)
+        public PassengerDetailsPage(PassengerDTO passenger)
         {
             InitializeComponent();
 
