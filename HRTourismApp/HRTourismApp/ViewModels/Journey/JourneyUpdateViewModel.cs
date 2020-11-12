@@ -5,13 +5,14 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using HRTourismApp.Helpers;
 using HRTourismApp.Services;
+using HRTourismApp.Models.Core;
 
 namespace HRTourismApp.ViewModels.Journey
 {
     public class JourneyUpdateViewModel
     {
         // Data
-        public Models.JourneyModal Journey { get; set; }
+        public JourneyDTO Journey { get; set; }
 
         // Commands
         public ICommand JourneyCommand
@@ -27,7 +28,12 @@ namespace HRTourismApp.ViewModels.Journey
 
         public JourneyUpdateViewModel()
         {
-            Journey = new Models.JourneyModal();
+            Journey = new JourneyDTO();
+            LookupsService ls = new LookupsService();
+
+            Journey.DriverList = ls.GetDrivers(8);
+            Journey.VehicleList = ls.GetVehicles(8);
+
             journeyService = new JourneyService();
         }
 

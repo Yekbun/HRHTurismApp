@@ -1,35 +1,56 @@
-﻿using HRTourismApp.Models.HRTourismApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using HRTourismApp.Helpers;
 using HRTourismApp.Services;
+using HRTourismApp.Models;
 
 namespace HRTourismApp.ViewModels.Passenger
 {  
-   public class PassengerCreateViewModel
+   public class PassengerCreateViewModel : BaseViewModel
     {
-        public PassengerModel Passenger { get; set; }
+        private LookupsService _lookService;
+        public PassengerDTO Passenger { get; set; }        
+        public IList<CountryDTO> CountryList { get { return _lookService.GetCountry(); } }     
+
         public ICommand AddPassengerCommand
         {
             get { return new Command(AddPassenger); }
         }
 
-        private PassengerService passengerService;
+        private PassengerService _passengerService;
+        
         public PassengerCreateViewModel()
         {
-            passengerService = new PassengerService();
-            Passenger = new PassengerModel();
+            _passengerService = new PassengerService();
+            _lookService = new LookupsService();
+
+            Passenger = new PassengerDTO();
+           
         }
+        private CountryDTO _selectedCountry;        
+        public CountryDTO SelectedCountry
+        {
+            get { return _selectedCountry; }
+            set
+            {
+                if (_selectedCountry != value)
+                {
+                    _selectedCountry = value;
+                    OnPropertyChanged();
+                }
+            }
+        }       
+
         private async void AddPassenger()
         {
             try
             {
-                Passenger.Id = 1;
+                Passenger.Id = 1;                
 
-                int createdId = await passengerService.SaveAsync(Passenger);
+                int createdId = await _passengerService.SaveAsync(Passenger);
 
                 if (createdId > 0)
                 {

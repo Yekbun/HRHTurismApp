@@ -1,4 +1,4 @@
-﻿using HRTourismApp.Models.HRTourismApp.Models;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -9,15 +9,16 @@ using Xamarin.Forms;
 using HRTourismApp.Helpers;
 using HRTourismApp.Services;
 using HRTourismApp.Views.Passenger;
+using HRTourismApp.Models;
 
 namespace HRTourismApp.ViewModels.Passenger
 {
     public class PassengerListViewModel:BaseViewModel
     {
-        private IEnumerable<PassengerModel> passengerList;
+        private IEnumerable<PassengerDTO> passengerList;
         private PassengerService passengerService;
 
-        public IEnumerable<PassengerModel> PassengerList
+        public IEnumerable<PassengerDTO> PassengerList
         {
             get { return passengerList; }
             set { OnPropertyChanged(); }
@@ -35,13 +36,13 @@ namespace HRTourismApp.ViewModels.Passenger
         {
             await NavigationHelper.PushAsyncSingle(new PassengerPage());
         }
-        public async Task<IEnumerable<PassengerModel>> GetAllPassenger()
+        public async Task<IEnumerable<PassengerDTO>> GetAllPassenger()
         {
             passengerList = await passengerService.GetAllAsync();
             return passengerList;
         }
 
-        public async void GetSelectedPassenger(PassengerModel passenger)
+        public async void GetSelectedPassenger(PassengerDTO passenger)
         {
             await NavigationHelper.PushAsyncSingle(new PassengerDetailsPage(passenger));
         }

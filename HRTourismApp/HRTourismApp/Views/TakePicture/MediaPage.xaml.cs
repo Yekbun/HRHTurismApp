@@ -1,7 +1,11 @@
-﻿using Plugin.Media;
+﻿using HRTourismApp.Helpers.OCR;
+using HRTourismApp.Services;
+using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +42,7 @@ namespace HRTourismApp.Views.TakePicture
 
                 if (file == null)
                     return;
-
+                string filePath = file.Path;
                 await DisplayAlert("File Location", file.Path, "OK");
 
                 image.Source = ImageSource.FromStream(() =>
@@ -47,13 +51,31 @@ namespace HRTourismApp.Views.TakePicture
                     file.Dispose();
                     return stream;
                 });
+                                              
+                ILocalFileProvider service = DependencyService.Get<ILocalFileProvider>(DependencyFetchTarget.NewInstance);
+                byte[] byteArray = null;
+                using (service as IDisposable)
+                {
+                    byteArray= service.GetFileBytes(filePath);
+                }            
+                FreeOCR free = new FreeOCR();
+                
+                string retVal= await free.SendImageAsync(byteArray);
+                lblResult.Text = retVal.Trim();
+
+                IDeleteFromFile deleteService = DependencyService.Get<IDeleteFromFile>(DependencyFetchTarget.NewInstance);
+                using (deleteService as IDisposable)
+                {
+                    deleteService.DeleteFile(filePath);
+                }
+                image.Source = null;
             };
 
             pickPhoto.Clicked += async (sender, args) =>
             {
                 if (!CrossMedia.Current.IsPickPhotoSupported)
                 {
-                   await DisplayAlert("Photos Not Supported", ":( Permission not granted to photos.", "OK");
+                    await DisplayAlert("Photos Not Supported", ":( Permission not granted to photos.", "OK");
                     return;
                 }
                 var file = await Plugin.Media.CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
@@ -74,4 +96,5 @@ namespace HRTourismApp.Views.TakePicture
             };
         }
     }
+   
 }

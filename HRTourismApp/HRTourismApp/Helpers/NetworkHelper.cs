@@ -46,7 +46,7 @@ namespace HRTourismApp.Helpers
 
             HttpClient httpClient = new HttpClient(defaultClientHandler);
             httpClient.DefaultRequestHeaders.Clear();
-            httpClient.Timeout = TimeSpan.FromSeconds(Constant.CURRENT_TIMEOUT);
+            httpClient.Timeout = TimeSpan.FromSeconds(Constants.CURRENT_TIMEOUT);
             httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 
             string currentAccessToken = await TokenHelper.GetAccessToken();

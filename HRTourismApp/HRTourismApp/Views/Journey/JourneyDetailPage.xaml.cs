@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using HRTourismApp.Models;
+
 using HRTourismApp.ViewModels.Journey;
+using HRTourismApp.Models.Core;
 
 namespace HRTourismApp.Views.Journey
 {
@@ -21,7 +22,7 @@ namespace HRTourismApp.Views.Journey
             InitializeComponent();
         }
 
-        public JourneyDetailPage(JourneyModal journey)
+        public JourneyDetailPage(JourneyDTO journey)
         {
             InitializeComponent();
 

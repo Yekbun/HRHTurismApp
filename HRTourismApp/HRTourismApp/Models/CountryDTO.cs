@@ -1,7 +1,7 @@
 ﻿
 namespace HRTourismApp.Models
 {
-    public class Country
+    public class CountryDTO
     {       
         public string Code { get; set; }
         public string Name { get; set; }

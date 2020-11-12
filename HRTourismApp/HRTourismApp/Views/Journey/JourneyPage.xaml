@@ -13,32 +13,29 @@
             <Label Text="Bitiş Yeri"/><Entry Text="{Binding Journey.To}"/>
             <Label Text="Baslangic Tarihi"/>
             <DatePicker Date="{Binding Journey.StartDate}" VerticalOptions="CenterAndExpand" >
-                <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
-                <DatePicker.MinimumDate>
-                    <sys:DateTime x:FactoryMethod="Parse">
-                        <x:Arguments>
-                            <x:String>Jan 1 2000</x:String>
-                        </x:Arguments>
-                    </sys:DateTime>
-                </DatePicker.MinimumDate>
-                <DatePicker.MaximumDate>
-                    <sys:DateTime x:FactoryMethod="Parse">
-                        <x:Arguments>
-                            <x:String>Dec 31 2050</x:String>
-                        </x:Arguments>
-                    </sys:DateTime>
-                </DatePicker.MaximumDate>
+                <DatePicker.Format>dd-MM-yyyy</DatePicker.Format>                               
             </DatePicker>
             <TimePicker Time="{Binding Journey.StartDateTime}" Format="T" />
             <Label Text="Bitiş Tarihi"/>
-            <DatePicker Date="{Binding Journey.FinishDate}" Format="MMMM d,yyyy"/>
+            <DatePicker Date="{Binding Journey.FinishDate}" Format="dd-MM-yyyy"/>
             <TimePicker Time="{Binding Journey.FinishDateTime}" Format="T" />
             <Label Text="Şöför"/>
             <Entry Text="{Binding Journey.DriverId}"/>
             <Label Text="Araç"/>
             <Entry Text="{Binding Journey.VehicleId}"/>
             <Label Text="Ücret"/>
-            <Entry Text="{Binding Journey.Fees}"/>            
+            <Entry Text="{Binding Journey.Fees}"/>
+            <Picker Title="Surucu sec"
+                TitleColor="Red"
+                ItemsSource="{Binding Journey.DriverList}"
+                ItemDisplayBinding="{Binding Journey.DriverList.NameSurname}"                
+                SelectedItem="{Binding Journey.DriverId}"/>
+
+            <Picker Title="Arac sec"
+                TitleColor="Red"
+                ItemsSource="{Binding Journey.DriverList}"
+                ItemDisplayBinding="{Binding Journey.VehicleList.Plaque}"                
+                SelectedItem="{Binding Journey.VehicleId}"/>
             <Button x:Name="btnJourney" Command="{Binding JourneyCommand}" BackgroundColor="LightGreen"/>
 
         </StackLayout>

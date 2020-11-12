@@ -9,13 +9,15 @@ using Xamarin.Forms;
 using HRTourismApp.Helpers;
 using HRTourismApp.Services;
 using HRTourismApp.Views.Journey;
+using HRTourismApp.APIServices;
+using HRTourismApp.Models.Core;
 
 namespace HRTourismApp.ViewModels.Journey
 {
     public class JourneyListViewModel : BaseViewModel
     {
-        private List<Models.JourneyModal> journeyList;
-        public List<Models.JourneyModal> JourneyList
+        private List<JourneyDTO> journeyList;
+        public List<JourneyDTO> JourneyList
         {
             get { return journeyList; }
             set { OnPropertyChanged(); }
@@ -39,12 +41,28 @@ namespace HRTourismApp.ViewModels.Journey
         {
             await NavigationHelper.PushAsyncSingle(new JourneyPage());
         }       
-        public async Task<List<Models.JourneyModal>> GetAllJourney()
+        public async Task<List<JourneyDTO>> GetAllJourney()
         {
-            journeyList = await journeyService.GetAllAsync();
+            journeyList = await journeyService.GetAllJourney(8);
             return journeyList;
+
+            /*
+            HRTourismApp.APIServices.APIResponse apiResponse = await BookingService.DeleteBooking(0);
+            if (apiResponse != null && apiResponse.Success)
+            {
+                MessageNotificationHelper.ShowMessageSuccess("Booking has been deleted");
+            }
+            else
+            {
+                if (apiResponse.Messages != null)
+                {
+                    string message = apiResponse.Messages.FirstOrDefault();
+
+                    MessageNotificationHelper.ShowMessageFail(message);
+                }
+            }*/
         }
-        public async void GetSelectedJourney(Models.JourneyModal journey)
+        public async void GetSelectedJourney(JourneyDTO journey)
         {
             await NavigationHelper.PushAsyncSingle(new JourneyDetailPage(journey));
         }        

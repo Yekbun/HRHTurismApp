@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using HRTourismApp.ViewModels.Journey;
+using HRTourismApp.Models.Core;
 
 namespace HRTourismApp.Views.Journey
 {
@@ -29,7 +30,7 @@ namespace HRTourismApp.Views.Journey
             BindingContext = journeyCreateViewModel;
         }
 
-        public JourneyPage(Models.JourneyModal journey = null)
+        public JourneyPage(JourneyDTO journey = null)
         {
             if (journey == null)
                 return;

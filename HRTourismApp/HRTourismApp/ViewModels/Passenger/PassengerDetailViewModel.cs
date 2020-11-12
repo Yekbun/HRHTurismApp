@@ -1,5 +1,4 @@
-﻿using HRTourismApp.Models.HRTourismApp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
@@ -7,13 +6,14 @@ using Xamarin.Forms;
 using HRTourismApp.Helpers;
 using HRTourismApp.Services;
 using HRTourismApp.Views.Passenger;
+using HRTourismApp.Models;
 
 namespace HRTourismApp.ViewModels.Passenger
 {
     public class PassengerDetailViewModel
     {
         // Data
-        public PassengerModel Passenger { get; set; }
+        public PassengerDTO Passenger { get; set; }
 
         // Commands
       

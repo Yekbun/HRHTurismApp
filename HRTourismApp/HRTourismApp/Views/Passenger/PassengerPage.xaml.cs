@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using HRTourismApp.ViewModels.Passenger;
-using HRTourismApp.Models.HRTourismApp.Models;
+using HRTourismApp.Models;
 
 namespace HRTourismApp.Views.Passenger
 {
@@ -21,7 +21,7 @@ namespace HRTourismApp.Views.Passenger
             btnPassenger.IsVisible = true;
             BindingContext = _journeyCreateViewModel;
         }
-        public PassengerPage(PassengerModel passenger)
+        public PassengerPage(PassengerDTO passenger)
         {
             InitializeComponent();
             _journeyUpdateViewModel = new PassengerUpdateViewModel();
@@ -31,6 +31,15 @@ namespace HRTourismApp.Views.Passenger
             btnPassenger.IsVisible = false;
 
             BindingContext = _journeyUpdateViewModel;
+        }
+
+        private void pickerStaticData_SelectedIndexChanged(object sender, System.EventArgs e)
+        {
+            var picker = (Picker)sender;            
+            if(picker.SelectedIndex==0)
+                _journeyCreateViewModel.Passenger.Gender = "K";
+            else
+                _journeyCreateViewModel.Passenger.Gender = "E";
         }
     }
 }

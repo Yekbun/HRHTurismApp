@@ -41,7 +41,7 @@ namespace HRTourismApp.Helpers
                 {
                     try
                     {
-                        string endpoint = Constant.BASE_API_URL + "/token";
+                        string endpoint = Constants.BASE_API_URL + "/token";
 
                         Dictionary<string, string> refreshTokenParams = new Dictionary<string, string>
                         {
