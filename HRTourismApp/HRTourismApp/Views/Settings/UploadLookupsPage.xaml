@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HRTourismApp.Views.Settings.UploadLookupsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Geri" Clicked="ToolbarItem_Clicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>    
+    <ContentPage.Content>
+
+        <StackLayout>
+            <StackLayout>
+                <Label Text="Uygulama Ayarlari" FontSize="Large" HorizontalTextAlignment="Center"></Label>
+                <Label></Label>
+            </StackLayout>
+            <StackLayout>
+                <Label Text="Güncel ülke bilgilerini merkezi sistemden almak için aşağıdaki buttonu kullanın." FontSize="Small" HorizontalTextAlignment="Start" ></Label>                         
+                <Button x:Name="btnCountry" Text="Ulkeleri Guncelle" BackgroundColor="Coral" Clicked="btnCountry_Clicked"></Button>                
+            </StackLayout>
+            <StackLayout>
+                <Label Text="Güncel araç bilgilerini merkezi sistemden almak için aşağıdaki buttonu kullanın." FontSize="Small" HorizontalTextAlignment="Start"></Label>
+                <Button x:Name="btnVehicle" Text="Araçlari Güncelle" BackgroundColor="Blue" Clicked="btnVehicle_Clicked"></Button>
+            </StackLayout>
+            <StackLayout>
+                <Label Text="Güncel sürücü bilgilerini merkezi sistemden almak için aşağıdaki buttonu kullanın." FontSize="Small" HorizontalTextAlignment="Start"></Label>
+                <Button x:Name="btnDriver" Text="Sürücüleri Güncelle" BackgroundColor="Crimson" Clicked="btnDriver_Clicked"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+
+
+

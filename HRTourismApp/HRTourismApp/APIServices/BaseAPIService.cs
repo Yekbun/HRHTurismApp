@@ -24,14 +24,15 @@ namespace HRTourismApp.APIServices
                 HttpResponseMessage httpResponse = await httpClient.PostAsync(endpoint, httpContent, cancellationToken).ConfigureAwait(false);
                 Stream stream = await httpResponse.Content.ReadAsStreamAsync().ConfigureAwait(false);
                 response = NetworkHelper.DeserializeJsonFromStream<T>(stream);
+                
             }
             catch (OperationCanceledException operationCanceledException)
             {
-                Console.WriteLine(operationCanceledException.Message);
+                throw(operationCanceledException);
             }
             catch (HttpRequestException httpRequestException)
             {
-                Console.WriteLine(httpRequestException.Message);
+                throw (httpRequestException);
             }
             catch (MobileException exception)
             {

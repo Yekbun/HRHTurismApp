@@ -9,7 +9,7 @@
             <Label Text="Soyadi"/>
             <Entry Text="{Binding Passenger.LastName}" IsReadOnly="True"/>
             <Label Text="Uyruk"/>
-            <Entry Text="{Binding Passenger.CountryCode}" IsReadOnly="True"/>
+            <Entry Text="{Binding Passenger.CountryName}" IsReadOnly="True"/>
             <Label Text="TCKN\Pasaport"/>
             <Entry Text="{Binding Passenger.DocumentNo}" IsReadOnly="True"/>
             <Label Text="Telefon"/>
@@ -17,8 +17,16 @@
             <Label Text="Hes Kodu"/>
             <Entry Text="{Binding Passenger.HesKodu}" IsReadOnly="True"/>
             <Label Text="Cinsiyet"/>
-            <Entry Text="{Binding Passenger.Gender}" IsReadOnly="True"/>
-            <Button Command="{Binding CancelPassengerCommand}" Text="Iptal" BackgroundColor="Red"/>
+            <Picker x:Name="pickerGender" Title="Seciniz" >
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Kadin</x:String>
+                        <x:String>Erkek</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            
+            <Button Command="{Binding CancelPassengerCommand}" Text="Yolcu Iptal" BackgroundColor="Red"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

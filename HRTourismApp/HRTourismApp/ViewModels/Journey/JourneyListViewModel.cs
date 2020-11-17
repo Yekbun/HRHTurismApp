@@ -43,7 +43,7 @@ namespace HRTourismApp.ViewModels.Journey
         }       
         public async Task<List<JourneyDTO>> GetAllJourney()
         {
-            journeyList = await journeyService.GetAllJourney(8);
+            journeyList = await journeyService.GetAllJourney();
             return journeyList;
 
             /*

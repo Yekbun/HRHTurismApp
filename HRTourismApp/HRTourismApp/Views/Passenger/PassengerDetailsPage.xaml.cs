@@ -8,7 +8,7 @@ namespace HRTourismApp.Views.Passenger
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PassengerDetailsPage : ContentPage
     {
-        private PassengerDetailViewModel passengerDetailViewModel;
+        private PassengerViewModel _passengerViewModel;
         public PassengerDetailsPage()
         {
             InitializeComponent();
@@ -17,12 +17,22 @@ namespace HRTourismApp.Views.Passenger
         {
             InitializeComponent();
 
-            passengerDetailViewModel = new PassengerDetailViewModel();
-            
-            if (passenger != null)
-                passengerDetailViewModel.Passenger = passenger;
+            _passengerViewModel = new PassengerViewModel();
 
-            BindingContext = passengerDetailViewModel;
+            if (passenger != null)
+                _passengerViewModel.Passenger = passenger;
+
+            BindingContext = _passengerViewModel;
+            if (passenger.Gender == "K")
+            {
+                pickerGender.SelectedIndex = 0;
+            }
+            else
+            {
+                pickerGender.SelectedIndex = 1;
+            }
         }
+
     }
 }
+

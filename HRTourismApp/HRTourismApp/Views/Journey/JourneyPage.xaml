@@ -7,7 +7,6 @@
              x:Class="HRTourismApp.Views.Journey.JourneyPage">
     <ContentPage.Content>
         <StackLayout Margin="10">
-
             <Label Text="Başlangıç Yeri"/>
             <Entry Text="{Binding Journey.From}"/>
             <Label Text="Bitiş Yeri"/><Entry Text="{Binding Journey.To}"/>
@@ -37,7 +36,7 @@
                 ItemDisplayBinding="{Binding Journey.VehicleList.Plaque}"                
                 SelectedItem="{Binding Journey.VehicleId}"/>
             <Button x:Name="btnJourney" Command="{Binding JourneyCommand}" BackgroundColor="LightGreen"/>
-
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

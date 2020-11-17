@@ -6,6 +6,7 @@ using System.Text;
 using Xamarin.Forms;
 using HRTourismApp.Views.Journey;
 using HRTourismApp.Views.TakePicture;
+using HRTourismApp.Views.Settings;
 
 namespace HRTourismApp.ViewModels
 {
@@ -20,15 +21,11 @@ namespace HRTourismApp.ViewModels
         {
             App.Current.MainPage = new NavigationPage(new JourneyListPage());
         }
-        /*
-        public void launchsettings(object sender, EventArgs e)
+        
+        public void btnSettings_clicked(object sender, EventArgs e)
         {
-            App.Current.MainPage = new NavigationPage(new ItemDetailPage());
+            App.Current.MainPage = new NavigationPage(new UploadLookupsPage());
         }
 
-        public void launchshnotes(object sender, EventArgs e)
-        {
-            App.Current.MainPage = new NavigationPage(new AboutPage());
-        }*/
     }
 }

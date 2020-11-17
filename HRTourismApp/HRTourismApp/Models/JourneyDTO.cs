@@ -33,12 +33,18 @@ namespace HRTourismApp.Models.Core
 
         public ICommand ShowPassengers
         {
-            get { return new Command(() => showPassengers()); }
+            get { return new Command(() => showPassengers(Id)); }
         }
         
-        private async void showPassengers()
+        private async void showPassengers(long journeyId)
         {
-            await NavigationHelper.PushAsyncSingle(new PassengerListPage());
+            if (journeyId != 0)
+            {
+                await NavigationHelper.PushAsyncSingle(new PassengerListPage(journeyId));
+            }else
+            {
+                throw (new ArgumentNullException("Yolculuk tanimlanmadan yolcu girilemez."));
+            }
         }
     }
 }

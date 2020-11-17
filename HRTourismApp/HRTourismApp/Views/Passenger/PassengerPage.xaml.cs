@@ -2,44 +2,71 @@
 using Xamarin.Forms.Xaml;
 using HRTourismApp.ViewModels.Passenger;
 using HRTourismApp.Models;
+using HRTourismApp.Helpers;
+using System;
 
 namespace HRTourismApp.Views.Passenger
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PassengerPage : ContentPage
     {
-
-        private PassengerCreateViewModel _journeyCreateViewModel;
-        private PassengerUpdateViewModel _journeyUpdateViewModel;
-        public PassengerPage()
+        private PassengerViewModel _passengerViewModel;        
+        public PassengerPage(long journeyId)
         {
             InitializeComponent();
-            _journeyCreateViewModel = new PassengerCreateViewModel();
+            try
+            {
+                _passengerViewModel = new PassengerViewModel();
 
-            Title = "Yolcu Ekle";
-            btnPassenger.Text = "Ekle";
-            btnPassenger.IsVisible = true;
-            BindingContext = _journeyCreateViewModel;
+                Title = "Yolcu Ekle";
+                btnPassenger.Text = "Ekle";
+                btnPassenger.IsVisible = true;
+                _passengerViewModel.Passenger.JourneyId = journeyId;
+                BindingContext = _passengerViewModel;
+            }
+            catch(Exception ex)
+            {
+                MessageNotificationHelper.ShowMessageError(ex.Message);
+            }
         }
         public PassengerPage(PassengerDTO passenger)
         {
-            InitializeComponent();
-            _journeyUpdateViewModel = new PassengerUpdateViewModel();
-            _journeyUpdateViewModel.Passenger = passenger;
+            try
+            {
+                InitializeComponent();
 
-            Title = "Yolcu Goruntule";
-            btnPassenger.IsVisible = false;
+                _passengerViewModel = new PassengerViewModel();
+                _passengerViewModel.Passenger = passenger;
 
-            BindingContext = _journeyUpdateViewModel;
+                Title = "Yolcu Goruntule";
+                btnPassenger.IsVisible = false;
+
+                BindingContext = _passengerViewModel;
+            }
+            catch (Exception ex)
+            {
+                MessageNotificationHelper.ShowMessageError(ex.Message);
+            }
         }
 
         private void pickerStaticData_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             var picker = (Picker)sender;            
             if(picker.SelectedIndex==0)
-                _journeyCreateViewModel.Passenger.Gender = "K";
+                _passengerViewModel.Passenger.Gender = "K";
             else
-                _journeyCreateViewModel.Passenger.Gender = "E";
+                _passengerViewModel.Passenger.Gender = "E";
+        }
+
+        private void CountryEntry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var picker = (Picker)sender;
+            if (picker.SelectedIndex > 0)
+            {
+                _passengerViewModel.Passenger.CountryId= ((CountryDTO)picker.SelectedItem).Id;
+                _passengerViewModel.Passenger.CountryName = ((CountryDTO)picker.SelectedItem).Name;
+            }
+
         }
     }
 }

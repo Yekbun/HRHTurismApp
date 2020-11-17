@@ -12,6 +12,7 @@ namespace HRTourismApp.ViewModels.Journey
    public class JourneyCreateViewModel
     {
         public JourneyDTO Journey { get; set; }
+        private JourneyService journeyService;
 
         // Commands
         public ICommand JourneyCommand
@@ -21,10 +22,7 @@ namespace HRTourismApp.ViewModels.Journey
                 return new Command(CreateJourney);
             }
         }
-
-        // Local services
-        JourneyService journeyService;
-
+                
         public JourneyCreateViewModel()
         {
             Journey = new JourneyDTO();
@@ -36,8 +34,6 @@ namespace HRTourismApp.ViewModels.Journey
         {
             try
             {
-                Journey.Id = 1;
-
                 int createdId = await journeyService.SaveAsync(Journey);
 
                 if (createdId > 0)

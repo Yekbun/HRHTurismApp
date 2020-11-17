@@ -51,7 +51,7 @@ namespace HRTourismApp.ViewModels.Journey
                 bool isDeleted = await Application.Current.MainPage.DisplayAlert("Warning", "Are you sure want to delete this item?", "OK", "Cancel");
                 if (isDeleted)
                 {
-                    int deletedId = await journeyService.DeleteAsync(Journey.Id,Journey.UserId,Journey.Description);
+                    int deletedId = await journeyService.DeleteAsync(Journey.Id,Journey.Description);
                     if (deletedId > 0)
                     {
                         MessageNotificationHelper.ShowMessageSuccess("Booking has been deleted");

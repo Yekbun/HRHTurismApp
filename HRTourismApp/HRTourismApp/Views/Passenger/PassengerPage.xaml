@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="HRTourismApp.Views.Passenger.PassengerPage">
     <ContentPage.Content>
-        <StackLayout Margin="10">
-
+        <StackLayout >
+             <Button x:Name="btnOCR" Text="ID Oku" Command="{Binding AddPassengerCommand}" BackgroundColor="LightGreen" IsVisible="false"/>
             <Label Text="Adi"/>
             <Entry Text="{Binding Passenger.FirstName}"></Entry>            
             <Label Text="Soyadi"/>
@@ -12,8 +12,7 @@
             <Label Text="Uyruk"/>
             <Picker Title="Ulke seciniz" x:Name="CountryEntry"           
                 ItemsSource="{Binding CountryList}"
-                ItemDisplayBinding="{Binding Name}"
-                     SelectedItem="{Binding SelectedCountry}" />            
+                ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="CountryEntry_SelectedIndexChanged" />            
             <Label Text="TCKN\Pasaport"/>
                 <Entry Text="{Binding Passenger.DocumentNo}"></Entry>            
             <Label Text="Telefon"/>
@@ -21,7 +20,7 @@
             <Label Text="Hes Kodu"/>
                 <Entry Text="{Binding Passenger.HesKodu}"/>            
             <Label Text="Cinsiyet"/>
-                  <Picker x:Name="pickerStaticData" Title="Select Gender" TextColor="Fuchsia" HeightRequest="50" SelectedIndexChanged="pickerStaticData_SelectedIndexChanged" >
+                  <Picker x:Name="pickerStaticData" Title="Seciniz" SelectedIndexChanged="pickerStaticData_SelectedIndexChanged" >
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Kadin</x:String>
@@ -29,9 +28,8 @@
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
-            <Button x:Name="btnPassenger" Command="{Binding AddPassengerCommand}" BackgroundColor="LightGreen"/>
-            <Button x:Name="btnNFC" Command="{Binding AddPassengerCommand}" BackgroundColor="LightGreen"/>
-
+            <Button x:Name="btnPassenger" Text="Kaydet" Command="{Binding AddPassengerCommand}" BackgroundColor="BlueViolet"/>
+            <Label Text="{Binding Passenger.JourneyId}" IsVisible="false"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

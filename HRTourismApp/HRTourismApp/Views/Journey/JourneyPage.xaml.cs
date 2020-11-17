@@ -14,14 +14,14 @@ namespace HRTourismApp.Views.Journey
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class JourneyPage : ContentPage
     {
-        private JourneyCreateViewModel journeyCreateViewModel;
+        private JourneyViewModel journeyCreateViewModel;
         private JourneyUpdateViewModel journeyUpdateViewModel;
 
         public JourneyPage()
         {
             InitializeComponent();
 
-            journeyCreateViewModel = new JourneyCreateViewModel();
+            journeyCreateViewModel = new JourneyViewModel();
 
             // Set default text
             Title = "Create Journey";

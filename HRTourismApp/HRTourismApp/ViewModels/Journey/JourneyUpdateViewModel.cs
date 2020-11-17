@@ -31,8 +31,8 @@ namespace HRTourismApp.ViewModels.Journey
             Journey = new JourneyDTO();
             LookupsService ls = new LookupsService();
 
-            Journey.DriverList = ls.GetDrivers(8);
-            Journey.VehicleList = ls.GetVehicles(8);
+            Journey.DriverList = ls.GetDrivers();
+            Journey.VehicleList = ls.GetVehicles();
 
             journeyService = new JourneyService();
         }
