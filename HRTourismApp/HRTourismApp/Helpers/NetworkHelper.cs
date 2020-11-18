@@ -95,6 +95,27 @@ namespace HRTourismApp.Helpers
                 if (streamReader != null)
                     stream.Dispose();
             }
+        } 
+
+        //TODO:silinecek
+        public static int DeserializeJsonFromStream(Stream stream)
+        {            
+            StreamReader streamReader = null;
+
+            try
+            {
+                streamReader = new StreamReader(stream);
+
+                JsonTextReader jsonTextReader = new JsonTextReader(streamReader);
+                JsonSerializer jsonSerializer = new JsonSerializer();
+                var result = jsonSerializer.Deserialize(jsonTextReader);
+                return 1;
+            }
+            finally
+            {
+                if (streamReader != null)
+                    stream.Dispose();
+            }
         }
 
         public static void SerializeJsonToStream(object value, Stream stream)

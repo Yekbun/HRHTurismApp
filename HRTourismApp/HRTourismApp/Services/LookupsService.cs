@@ -34,7 +34,6 @@ namespace HRTourismApp.Services
 
         public List<CountryDTO> GetCountry()
         {
-
             if (FileIOHelper.FileExists(_countryFileName) == false)
                 UpdateCountries();
             try
@@ -50,7 +49,7 @@ namespace HRTourismApp.Services
         public List<UserDTO> GetDrivers()
         {
             if (FileIOHelper.FileExists(_driversFileName) == false)
-                UpdateCountries();
+                UpdateDrivers();
 
             try
             {                
@@ -67,9 +66,9 @@ namespace HRTourismApp.Services
         {
             try
             {
-                endpoint = Constants.BASE_API_URL + "api/Company/" + App.User.CompanyId.ToString() + "/Vehicle";//TODO:ana serviste adini degistir. Vehicles olacak
+                endpoint = Constants.BASE_API_URL + "api/Company/" + App.User.CompanyId.ToString() + "/Vehicles";
                 _cancellationToken = new CancellationToken();
-                var taskResponse = BaseAPIService.Get<List<UserDTO>>(endpoint, _cancellationToken);
+                var taskResponse = BaseAPIService.Get<List<VehicleDTO>>(endpoint, _cancellationToken);
 
                 var data = JsonConvert.SerializeObject(taskResponse.Result);
                 if (data != null)

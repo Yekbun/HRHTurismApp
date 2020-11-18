@@ -23,10 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\OCR\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Compile Update="Views\Journey\JourneyDetailPage_silinecek.xaml.cs">
+      <DependentUpon>JourneyDetailPage_silinecek.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Journey\JourneyListPage.xaml.cs">
       <DependentUpon>JourneyListPage.xaml</DependentUpon>
     </Compile>
@@ -36,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\Journey\JourneyDetailPage.xaml">
+    <EmbeddedResource Update="Views\Journey\JourneyDetailPage_silinecek.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Journey\JourneyListPage.xaml">

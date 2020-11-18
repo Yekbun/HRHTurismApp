@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRTourismApp.Android", "HRT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRTourismApp.iOS", "HRTourismApp\HRTourismApp.iOS\HRTourismApp.iOS.csproj", "{DABC3013-0783-4342-8D5D-6319C0189D57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRTourismApp", "HRTourismApp\HRTourismApp\HRTourismApp.csproj", "{86BD0342-4404-497C-BAD1-FF7CEB5EC377}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRTourismApp", "HRTourismApp\HRTourismApp\HRTourismApp.csproj", "{86BD0342-4404-497C-BAD1-FF7CEB5EC377}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

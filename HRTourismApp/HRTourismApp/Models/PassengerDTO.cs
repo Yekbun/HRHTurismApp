@@ -24,17 +24,7 @@ namespace HRTourismApp.Models
         public int UserId { get; set; }
         public long YolcuRefNo { get; set; }
 
-      /*
-        public ICommand AddPassenger
-        {
-          //  get { return new Command(() => addPassenger()); }
-        }
-
-        private async void addPassenger()
-        {
-          //  await NavigationHelper.PushAsyncSingle(new PassengerPage());
-        }
-      */
+      
     }
 
 

@@ -19,14 +19,14 @@ namespace HRTourismApp.ViewModels.Passenger
         public PassengerDTO Passenger { get; set; }
         public IList<CountryDTO> CountryList { get { return _countryList; } }
 
-        public ICommand AddPassengerCommand
+        public ICommand CreateCommand
         {
-            get { return new Command(AddPassenger); }
+            get { return new Command(addPassenger); }
         }
 
-        public ICommand CancelPassengerCommand
+        public ICommand DeleteCommand
         {
-            get { return new Command(CancelPassenger); }
+            get { return new Command(cancelPassenger); }
         }
 
         public CountryDTO SelectedCountry
@@ -46,11 +46,13 @@ namespace HRTourismApp.ViewModels.Passenger
         {
             try
             {
+                Passenger = new PassengerDTO();
                 _passengerService = new PassengerService();
                 _countryList = new List<CountryDTO>();
                 _lookService = new LookupsService();
+
                 _countryList = _lookService.GetCountry();
-                Passenger = new PassengerDTO();
+                
 
             }
             catch (Exception ex)
@@ -59,29 +61,44 @@ namespace HRTourismApp.ViewModels.Passenger
             }
 
         }
-        private async void AddPassenger()
+        private async void addPassenger()
         {
             try
-            {
-                if(Passenger.CountryId == 0)
+            {            
+                if (Passenger.FirstName == "")
+                {
+                    MessageNotificationHelper.ShowMessageFail("Yolcu adı boş olamaz.");
+                }
+                if (Passenger.FirstName == "")
+                {
+                    MessageNotificationHelper.ShowMessageFail("Yolcu soyadı boş olamaz.");
+                }
+                if (Passenger.JourneyId == 0)
+                {
+                    MessageNotificationHelper.ShowMessageFail("JourneyId bulunamadı.");
+                }
+                if (Passenger.CountryId == 0)
                 {
                     MessageNotificationHelper.ShowMessageFail("Ülke bilgisi boş olamaz.");
                 }
-
-                if (Passenger.JourneyId == 0)
+                if (Passenger.CountryId == 0)
                 {
-                    MessageNotificationHelper.ShowMessageFail("JourneyId bulunamadi.");
+                    MessageNotificationHelper.ShowMessageFail("Pasaport/Id bilgisi boş olamaz.");
+                }
+                if (Passenger.Gender == "")
+                {
+                    MessageNotificationHelper.ShowMessageFail("Cinsiyet bilgisi boş olamaz.");
                 }
 
                 int createdId = await _passengerService.SaveAsync(Passenger);
                 if (createdId > 0)
                 {
-                    MessageNotificationHelper.ShowMessageSuccess("Yolcu oluşturuldu");
+                    MessageNotificationHelper.ShowMessageSuccess("İşlem başarıyla gercekleşti");
                     await NavigationHelper.PopAsyncSingle();
                 }
                 else
                 {
-                    MessageNotificationHelper.ShowMessageFail("Yolcu eklemede hata oluştu.");
+                    MessageNotificationHelper.ShowMessageFail("Beklenmedik bir hata oluştu.");
                 }               
             }
             catch (MobileException exception)
@@ -94,19 +111,20 @@ namespace HRTourismApp.ViewModels.Passenger
             }
         }
 
-        public async void CancelPassenger()
+        private async void cancelPassenger()
         {
             try
             {
                 bool isDeleted = await Application.Current.MainPage.DisplayAlert("Dikkat", "Yolcuyu iptal etmek istediğinize emin misiniz?", "OK", "Vazgeç");
                 if (isDeleted)
                 {
+                    Passenger.UserId = App.User.Id;
                     int updatedId = await _passengerService.DeleteAsync(Passenger.Id);
                     if (updatedId > 0)
                     {
                         MessageNotificationHelper.ShowMessageSuccess("Yolcu iptal etme başariyla gerçekleşti.");
                         await NavigationHelper.PopAsyncSingle();
-                        //NavigationHelper.GoToMainPage();
+                        
                     }
                     else
                     {

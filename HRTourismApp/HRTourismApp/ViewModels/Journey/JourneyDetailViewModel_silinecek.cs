@@ -10,7 +10,7 @@ using HRTourismApp.Models.Core;
 
 namespace HRTourismApp.ViewModels.Journey
 {
-    public class JourneyDetailViewModel
+    public class JourneyDetailViewModel_silinecek
     {
         // Data
         public JourneyDTO Journey { get; set; }
@@ -34,7 +34,7 @@ namespace HRTourismApp.ViewModels.Journey
         // Local services
         JourneyService journeyService;
 
-        public JourneyDetailViewModel()
+        public JourneyDetailViewModel_silinecek()
         {
             journeyService = new JourneyService();
         }

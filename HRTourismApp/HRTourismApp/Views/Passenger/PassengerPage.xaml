@@ -12,7 +12,8 @@
             <Label Text="Uyruk"/>
             <Picker Title="Ulke seciniz" x:Name="CountryEntry"           
                 ItemsSource="{Binding CountryList}"
-                ItemDisplayBinding="{Binding Name}" SelectedIndexChanged="CountryEntry_SelectedIndexChanged" />            
+                ItemDisplayBinding="{Binding Name}" 
+                SelectedIndexChanged="CountryEntry_SelectedIndexChanged" />            
             <Label Text="TCKN\Pasaport"/>
                 <Entry Text="{Binding Passenger.DocumentNo}"></Entry>            
             <Label Text="Telefon"/>
@@ -20,7 +21,7 @@
             <Label Text="Hes Kodu"/>
                 <Entry Text="{Binding Passenger.HesKodu}"/>            
             <Label Text="Cinsiyet"/>
-                  <Picker x:Name="pickerStaticData" Title="Seciniz" SelectedIndexChanged="pickerStaticData_SelectedIndexChanged" >
+            <Picker x:Name="pickerGender" Title="Seciniz" SelectedIndexChanged="pickerGender_SelectedIndexChanged" >
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Kadin</x:String>
@@ -28,7 +29,8 @@
                     </x:Array>
                 </Picker.ItemsSource>
             </Picker>
-            <Button x:Name="btnPassenger" Text="Kaydet" Command="{Binding AddPassengerCommand}" BackgroundColor="BlueViolet"/>
+            <Button x:Name="btnSave" Text="Kaydet" Command="{Binding CreateCommand}" />
+            <Button x:Name="btnCancel" Text="Iptal" Command="{Binding DeleteCommand}"  BackgroundColor="Red"/>
             <Label Text="{Binding Passenger.JourneyId}" IsVisible="false"/>
         </StackLayout>
     </ContentPage.Content>

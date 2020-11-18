@@ -19,8 +19,9 @@ namespace HRTourismApp.Views.Passenger
                 _passengerViewModel = new PassengerViewModel();
 
                 Title = "Yolcu Ekle";
-                btnPassenger.Text = "Ekle";
-                btnPassenger.IsVisible = true;
+                btnSave.IsVisible = true;
+                btnCancel.IsVisible = false;
+
                 _passengerViewModel.Passenger.JourneyId = journeyId;
                 BindingContext = _passengerViewModel;
             }
@@ -38,10 +39,19 @@ namespace HRTourismApp.Views.Passenger
                 _passengerViewModel = new PassengerViewModel();
                 _passengerViewModel.Passenger = passenger;
 
-                Title = "Yolcu Goruntule";
-                btnPassenger.IsVisible = false;
-
+                Title = "Yolcu Görüntüle";
+                btnSave.IsVisible = false;
+                btnCancel.IsVisible = true;
                 BindingContext = _passengerViewModel;
+
+                if (passenger.Gender == "K")
+                {
+                    pickerGender.SelectedIndex = 0;
+                }
+                else
+                {
+                    pickerGender.SelectedIndex = 1;
+                }
             }
             catch (Exception ex)
             {
@@ -49,7 +59,7 @@ namespace HRTourismApp.Views.Passenger
             }
         }
 
-        private void pickerStaticData_SelectedIndexChanged(object sender, System.EventArgs e)
+        private void pickerGender_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             var picker = (Picker)sender;            
             if(picker.SelectedIndex==0)

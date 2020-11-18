@@ -46,7 +46,7 @@ namespace HRTourismApp.ViewModels.Passenger
 
         public async void GetSelectedPassenger(PassengerDTO passenger)
         {
-            await NavigationHelper.PushAsyncSingle(new PassengerDetailsPage(passenger));
+            await NavigationHelper.PushAsyncSingle(new PassengerPage(passenger));
         }
 
     }

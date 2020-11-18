@@ -9,7 +9,7 @@ using HRTourismApp.Models.Core;
 
 namespace HRTourismApp.ViewModels.Journey
 {
-    public class JourneyUpdateViewModel
+    public class JourneyUpdateViewModel_silinecek
     {
         // Data
         public JourneyDTO Journey { get; set; }
@@ -26,13 +26,13 @@ namespace HRTourismApp.ViewModels.Journey
         // Local services
         JourneyService journeyService;
 
-        public JourneyUpdateViewModel()
+        public JourneyUpdateViewModel_silinecek()
         {
             Journey = new JourneyDTO();
             LookupsService ls = new LookupsService();
 
-            Journey.DriverList = ls.GetDrivers();
-            Journey.VehicleList = ls.GetVehicles();
+            //Journey.DriverList = ls.GetDrivers();
+           // Journey.VehicleList = ls.GetVehicles();
 
             journeyService = new JourneyService();
         }

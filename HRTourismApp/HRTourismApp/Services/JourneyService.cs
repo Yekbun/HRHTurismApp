@@ -12,7 +12,7 @@ namespace HRTourismApp.Services
 {
     public class JourneyService //: IBaseCrud<JourneyModal> TODO: buna bir bak
     {
-        private string endpoint = Constants.BASE_API_URL + "api/Journeys";
+        private string endpoint = Constants.BASE_API_URL + "api/Journey";
         private static CancellationToken _cancellationToken;
         
         public JourneyService()
@@ -49,8 +49,15 @@ namespace HRTourismApp.Services
         public Task<int> SaveAsync(JourneyDTO journey)
         {
             journey.UserId = App.User.Id;
-            var responseTask = BaseAPIService.Post<APIResponse>(endpoint, journey, _cancellationToken);
-            return Task.FromResult(1);
+            journey.From = "Şirinevler, Bahçelievler/İstanbul";
+            journey.To = "Mecidiyeköy, Şişli/İstanbul";
+                      
+            var response = BaseAPIService.Post<APIResponse>(endpoint, journey, _cancellationToken);
+            response.Wait();
+            if(response.Result != null)
+                return Task.FromResult(1);
+            else
+                return Task.FromResult(0);
         }
 
         public Task<int> UpdateAsync(JourneyDTO journey)
@@ -58,8 +65,11 @@ namespace HRTourismApp.Services
             journey.UserId = App.User.Id;
             endpoint += "/" + journey.Id;            
             var response= BaseAPIService.Put<APIResponse>(endpoint, journey, _cancellationToken);
-
-            return Task.FromResult(1);
+            response.Wait();
+            if (response.Result != null)
+                return Task.FromResult(1);
+            else
+                return Task.FromResult(0);
         }
     }
 }

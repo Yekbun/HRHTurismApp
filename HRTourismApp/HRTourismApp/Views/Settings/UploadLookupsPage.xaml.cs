@@ -35,12 +35,14 @@ namespace HRTourismApp.Views.Settings
 
         private void btnVehicle_Clicked(object sender, EventArgs e)
         {
-
+            _lookupsService.UpdateVehicles();
+            MessageNotificationHelper.ShowMessageFail("Arac bilgileri basariyla guncellendi");
         }
 
         private void btnDriver_Clicked(object sender, EventArgs e)
         {
-
+            _lookupsService.UpdateDrivers();
+            MessageNotificationHelper.ShowMessageFail("Surucu bilgileri basariyla guncellendi");
         }
 
         private void ToolbarItem_Clicked(object sender, EventArgs e)
