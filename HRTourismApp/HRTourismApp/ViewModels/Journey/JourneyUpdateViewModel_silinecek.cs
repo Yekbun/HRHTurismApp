@@ -9,8 +9,9 @@ using HRTourismApp.Models.Core;
 
 namespace HRTourismApp.ViewModels.Journey
 {
-   public class JourneyCreateViewModel
+    public class JourneyUpdateViewModel_silinecek
     {
+        // Data
         public JourneyDTO Journey { get; set; }
 
         // Commands
@@ -18,42 +19,45 @@ namespace HRTourismApp.ViewModels.Journey
         {
             get
             {
-                return new Command(CreateJourney);
+                return new Command(UpdateJourney);
             }
         }
 
         // Local services
         JourneyService journeyService;
 
-        public JourneyCreateViewModel()
+        public JourneyUpdateViewModel_silinecek()
         {
             Journey = new JourneyDTO();
+            LookupsService ls = new LookupsService();
+
+            //Journey.DriverList = ls.GetDrivers();
+           // Journey.VehicleList = ls.GetVehicles();
 
             journeyService = new JourneyService();
         }
 
-        public async void CreateJourney()
+        public async void UpdateJourney()
         {
             try
             {
-                Journey.Id = 1;
-
-                int createdId = await journeyService.SaveAsync(Journey);
-
-                if (createdId > 0)
+                int updatedId = await journeyService.UpdateAsync(Journey);
+                if (updatedId > 0)
                 {
-                    MessageNotificationHelper.ShowMessageSuccess("Booking has been created");
-                    await NavigationHelper.PopAsyncSingle();
+                    MessageNotificationHelper.ShowMessageSuccess("Booking has been updated");
+
+                    NavigationHelper.GoToMainPage();
                 }
                 else
                 {
-                    MessageNotificationHelper.ShowMessageFail("Unable to create booking");
+                    MessageNotificationHelper.ShowMessageFail("Unable to update booking");
                 }
 
-                //APIResponse apiResponse = await BookingService.CreateBooking(Booking);
+                //APIResponse apiResponse = await BookingService.UpdateBooking(1, booking);
                 //if (apiResponse != null && apiResponse.Success)
                 //{
-                //    MessageNotificationHelper.ShowMessageSuccess("Booking has been created");
+                //    MessageNotificationHelper.ShowMessageSuccess("Booking has been updated");
+
                 //    await Navigation.PopAsync();
                 //}
                 //else
@@ -61,6 +65,7 @@ namespace HRTourismApp.ViewModels.Journey
                 //    if (apiResponse.Messages != null)
                 //    {
                 //        string message = apiResponse.Messages.FirstOrDefault();
+
                 //        MessageNotificationHelper.ShowMessageFail(message);
                 //    }
                 //}

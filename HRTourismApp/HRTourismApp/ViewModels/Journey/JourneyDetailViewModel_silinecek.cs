@@ -5,42 +5,53 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using HRTourismApp.Helpers;
 using HRTourismApp.Services;
-using HRTourismApp.Views.Passenger;
-using HRTourismApp.Models;
+using HRTourismApp.Views.Journey;
+using HRTourismApp.Models.Core;
 
-namespace HRTourismApp.ViewModels.Passenger
+namespace HRTourismApp.ViewModels.Journey
 {
-    public class PassengerDetailViewModel
+    public class JourneyDetailViewModel_silinecek
     {
         // Data
-        public PassengerDTO Passenger { get; set; }
+        public JourneyDTO Journey { get; set; }
 
         // Commands
-      
-        public ICommand CancelPassengerCommand
+        public ICommand UpdateJourneyCommand
         {
             get
             {
-                return new Command(CancelPassenger);
+                return new Command(UpdateJourney);
+            }
+        }
+        public ICommand DeleteJourneyCommand
+        {
+            get
+            {
+                return new Command(DeleteJourney);
             }
         }
 
         // Local services
-        PassengerService passengerService;
+        JourneyService journeyService;
 
-        public PassengerDetailViewModel()
+        public JourneyDetailViewModel_silinecek()
         {
-            passengerService = new PassengerService();
+            journeyService = new JourneyService();
         }
-       
-        public async void CancelPassenger()
+
+        public async void UpdateJourney()
+        {
+            await NavigationHelper.PushAsyncSingle(new JourneyPage(Journey));
+        }
+
+        public async void DeleteJourney()
         {
             try
             {
                 bool isDeleted = await Application.Current.MainPage.DisplayAlert("Warning", "Are you sure want to delete this item?", "OK", "Cancel");
                 if (isDeleted)
                 {
-                    int deletedId = await passengerService.DeleteAsync(Passenger);
+                    int deletedId = await journeyService.DeleteAsync(Journey.Id,Journey.Description);
                     if (deletedId > 0)
                     {
                         MessageNotificationHelper.ShowMessageSuccess("Booking has been deleted");

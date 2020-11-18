@@ -11,6 +11,7 @@ using HRTourismApp.Services;
 using HRTourismApp.Views.Journey;
 using HRTourismApp.APIServices;
 using HRTourismApp.Models.Core;
+using HRTourismApp.Views.Passenger;
 
 namespace HRTourismApp.ViewModels.Journey
 {
@@ -43,7 +44,7 @@ namespace HRTourismApp.ViewModels.Journey
         }       
         public async Task<List<JourneyDTO>> GetAllJourney()
         {
-            journeyList = await journeyService.GetAllJourney(8);
+            journeyList = await journeyService.GetAllJourney();
             return journeyList;
 
             /*
@@ -64,7 +65,7 @@ namespace HRTourismApp.ViewModels.Journey
         }
         public async void GetSelectedJourney(JourneyDTO journey)
         {
-            await NavigationHelper.PushAsyncSingle(new JourneyDetailPage(journey));
-        }        
+            await NavigationHelper.PushAsyncSingle(new JourneyPage(journey));
+        }       
     }
 }

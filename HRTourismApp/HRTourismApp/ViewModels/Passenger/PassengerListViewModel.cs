@@ -15,36 +15,38 @@ namespace HRTourismApp.ViewModels.Passenger
 {
     public class PassengerListViewModel:BaseViewModel
     {
-        private IEnumerable<PassengerDTO> passengerList;
-        private PassengerService passengerService;
+        private IEnumerable<PassengerDTO> _passengerList;
+        private PassengerService _passengerService;
+        private long _journeyId;
 
         public IEnumerable<PassengerDTO> PassengerList
         {
-            get { return passengerList; }
+            get { return _passengerList; }
             set { OnPropertyChanged(); }
         }
         public ICommand AddCommand
         {
             get { return new Command(ShowPassengerPage); }            
         }
-        public PassengerListViewModel()
+        public PassengerListViewModel(long journeyId)
         {
-            passengerService = new PassengerService();
+            _passengerService = new PassengerService();
+            _journeyId = journeyId;
         }
         
         private async void ShowPassengerPage()
-        {
-            await NavigationHelper.PushAsyncSingle(new PassengerPage());
+        {            
+            await NavigationHelper.PushAsyncSingle(new PassengerPage(_journeyId));
         }
         public async Task<IEnumerable<PassengerDTO>> GetAllPassenger()
         {
-            passengerList = await passengerService.GetAllAsync();
-            return passengerList;
+            _passengerList = await _passengerService.GetAllPassengerAsync(_journeyId);
+            return _passengerList;
         }
 
         public async void GetSelectedPassenger(PassengerDTO passenger)
         {
-            await NavigationHelper.PushAsyncSingle(new PassengerDetailsPage(passenger));
+            await NavigationHelper.PushAsyncSingle(new PassengerPage(passenger));
         }
 
     }

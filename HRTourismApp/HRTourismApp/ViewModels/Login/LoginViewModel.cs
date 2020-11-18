@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using HRTourismApp.Views;
+using HRTourismApp.Models;
 
 namespace HRTourismApp.ViewModels
 {
@@ -50,14 +51,15 @@ namespace HRTourismApp.ViewModels
 
                 //new NavigationPage(new MainMenu());
                 //Application.Current.MainPage.Navigation.PushAsync(new MainMenu());
+
+                App.IsUserLoggedIn = true;
+                
+                App.User = new UserDTO { Id = 55, CompanyId = 8, CompanyName = "Firma 4 Yolcu Tasimacili", Email = "olcayyf @hotmail.com", NameSurname = "Feryat Olcay", Phone = "05378217440", RoleId = 1 };
+                //TODO:Login 
                 App.Current.MainPage = new NavigationPage(new MainMenu());
 
             }
         }
-        // public async Task GotoPage2()
-        // {
-        /////
-        //await Application.Current.MainPage.Navigation.PushAsync(new MainMenu());
-        //}
+       
     }
 }

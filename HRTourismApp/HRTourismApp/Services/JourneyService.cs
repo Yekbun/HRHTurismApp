@@ -10,79 +10,66 @@ using HRTourismApp.Models.Core;
 
 namespace HRTourismApp.Services
 {
-    public class JourneyService //: IBaseCrud<JourneyModal>
+    public class JourneyService //: IBaseCrud<JourneyModal> TODO: buna bir bak
     {
-        private string endpoint = Constants.BASE_API_URL + "api/Journeys";
-        private static CancellationToken cancellationToken;
-
-        public List<JourneyDTO> MockJourneyData()
-        {
-            List<JourneyDTO> journeys = new List<JourneyDTO>()
-            {
-                new JourneyDTO { Id = 1, From= "Sirinevler", To="bakirkoy", StartDate=DateTime.Today.AddDays(-1).AddHours(-2), FinishDate=DateTime.Today.AddDays(-1).AddHours(-1) ,VehicleId=1, DriverId=1, Fees=100},
-                new JourneyDTO { Id = 2, From= "Yenibosna", To="mecodoye", StartDate=DateTime.Today.AddDays(-1).AddHours(-1), FinishDate=DateTime.Today.AddDays(-1) ,VehicleId=1, DriverId=1, Fees=100},
-                new JourneyDTO { Id = 3, From= "Sirin dfssdfsevler", To="dfg", StartDate=DateTime.Today.AddHours(-5), FinishDate=DateTime.Today.AddHours(-4) ,VehicleId=1, DriverId=1, Fees=200},
-                new JourneyDTO { Id = 4, From= "Sirasdasdasdainevler", To="gdfg", StartDate=DateTime.Today.AddHours(-4), FinishDate=DateTime.Today.AddHours(-3) ,VehicleId=1, DriverId=1, Fees=400},
-                new JourneyDTO { Id = 5, From= "Si rinvsdfdfsdfsevler", To="sdasda", StartDate=DateTime.Today.AddHours(-3), FinishDate=DateTime.Today.AddHours(-2) ,VehicleId=1, DriverId=1, Fees=300},
-                new JourneyDTO { Id = 6, From= "asdasdasd", To="asdadada", StartDate=DateTime.Today.AddHours(-2), FinishDate=DateTime.Today.AddHours(-1) ,VehicleId=1, DriverId=1, Fees=150},
-            };
-            return journeys;
-        }
-
+        private string endpoint = Constants.BASE_API_URL + "api/Journey";
+        private static CancellationToken _cancellationToken;
+        
         public JourneyService()
         {
-
+            _cancellationToken = new CancellationToken();
         }
-        
-        public Task<List<JourneyDTO>> GetAllJourney(/*Pagination pagination = null,*/ int companyId)
+
+        public Task<List<JourneyDTO>> GetAllJourney(/*Pagination pagination = null,*/)
         {
-            endpoint = Constants.BASE_API_URL + "api/company/"+companyId+"/Journeys";
+            endpoint = Constants.BASE_API_URL + "api/company/" +App.User.CompanyId + "/Journeys";
             /*
             if (pagination != null)
                endpoint = EndpointHelper.Pagination(endpoint, pagination);
             */
-                       
-            cancellationToken = new CancellationToken();
-            var responseTask = BaseAPIService.Get<List<JourneyDTO>>(endpoint, cancellationToken);            
-           return Task.FromResult(responseTask.Result);
+
+            var responseTask = BaseAPIService.Get<List<JourneyDTO>>(endpoint, _cancellationToken);
+            return Task.FromResult(responseTask.Result);
         }
 
-
-        public Task<int> DeleteAsync(long id, int userId, string cancelDesc)
+        public Task<int> DeleteAsync(long id, string cancelDesc)
         {
-            endpoint += "?id=" + id + " & userId = " + userId+ " & cancelDesc = '"+cancelDesc+"'";
-
-            cancellationToken = new CancellationToken();
-            var responseTask =BaseAPIService.Delete<APIResponse>(endpoint, cancellationToken);
-
+            endpoint += "?id=" + id + " & userId = " +App.User.Id.ToString() +" & cancelDesc = '" +cancelDesc+"'";            
+            var responseTask =BaseAPIService.Delete<APIResponse>(endpoint, _cancellationToken);
             return Task.FromResult(1);
         }
 
         public Task<JourneyDTO> GetJourney(long id)
         {
-            endpoint += "/" + id;
-
-            cancellationToken = new CancellationToken();
-            var responseTask = BaseAPIService.Get<JourneyDTO>(endpoint, cancellationToken);
+            endpoint += "/" + id;            
+            var responseTask = BaseAPIService.Get<JourneyDTO>(endpoint, _cancellationToken);
             return Task.FromResult(responseTask.Result);
         }
 
         public Task<int> SaveAsync(JourneyDTO journey)
-        {         
-            cancellationToken = new CancellationToken();
-            var responseTask = BaseAPIService.Post<APIResponse>(endpoint, journey, cancellationToken);
-
-            return Task.FromResult(1);
+        {
+            journey.UserId = App.User.Id;
+            journey.From = "Şirinevler, Bahçelievler/İstanbul";
+            journey.To = "Mecidiyeköy, Şişli/İstanbul";
+                      
+            var response = BaseAPIService.Post<APIResponse>(endpoint, journey, _cancellationToken);
+            response.Wait();
+            if(response.Result != null)
+                return Task.FromResult(1);
+            else
+                return Task.FromResult(0);
         }
 
         public Task<int> UpdateAsync(JourneyDTO journey)
         {
-            endpoint += "/" + journey.Id;
-
-            cancellationToken = new CancellationToken();
-            var response= BaseAPIService.Put<APIResponse>(endpoint, journey, cancellationToken);
-
-            return Task.FromResult(1);
+            journey.UserId = App.User.Id;
+            endpoint += "/" + journey.Id;            
+            var response= BaseAPIService.Put<APIResponse>(endpoint, journey, _cancellationToken);
+            response.Wait();
+            if (response.Result != null)
+                return Task.FromResult(1);
+            else
+                return Task.FromResult(0);
         }
     }
 }

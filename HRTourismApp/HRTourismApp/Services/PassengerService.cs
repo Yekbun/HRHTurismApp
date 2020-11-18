@@ -1,47 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using HRTourismApp.APIServices;
+using HRTourismApp.Helpers;
 using HRTourismApp.Models;
 
 namespace HRTourismApp.Services
 {
     public class PassengerService
     {
-        public List<PassengerDTO> MockJourneyData()
+        private string endpoint = Constants.BASE_API_URL;
+        private static CancellationToken _cancellationToken;        
+
+        public PassengerService()
+        {            
+            _cancellationToken = new CancellationToken();
+        }
+        public Task<List<PassengerDTO>> GetAllPassengerAsync(long journeyId)
         {
-            List<PassengerDTO> journeys = new List<PassengerDTO>()
+            endpoint = Constants.BASE_API_URL + "api/Journey/" + journeyId + "/Passengers";
+            var responseTask = BaseAPIService.Get<List<PassengerDTO>>(endpoint, _cancellationToken);
+            return Task.FromResult(responseTask.Result);
+        }
+
+        public Task<PassengerDTO> GetPassengerAsync(long id)
+        {
+            endpoint += "Passenger/" + id.ToString();
+            var responseTask = BaseAPIService.Get<PassengerDTO>(endpoint, _cancellationToken);
+            return Task.FromResult(responseTask.Result);
+        }
+
+        public Task<int> SaveAsync(PassengerDTO passenger)
+        {
+            try
             {
-                new PassengerDTO { Id = 1,JourneyId=1, FirstName="Feryat",LastName="Olcay", DocumentNo="435353453",HesKodu ="sdfsdfsdf", Phone="0538964222"},
-                new PassengerDTO { Id = 2,JourneyId=1, FirstName="Patrick",LastName="Pater", DocumentNo="5455",HesKodu ="454rfgdfg", Phone="05389455342"}
-            };
-            return journeys;
-        }
-        public Task<int> DeleteAsync(PassengerDTO item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<PassengerDTO>> GetAllAsync()
-        {
-            var Data = MockJourneyData();
-            return Task.FromResult(Data);
+                _cancellationToken = new CancellationToken();
+                endpoint += "api/Passenger";
+                passenger.UserId = App.User.Id;
+                var responseTask = BaseAPIService.Post<APIResponse>(endpoint, passenger, _cancellationToken);
+                responseTask.Wait();              
+            }
+            catch(Exception ex)
+            {
+                throw (ex);
+            }
+            return Task.FromResult(1);
         }
 
-        public Task<PassengerDTO> GetItemAsync(string id)
-        {
-            var passenger = new PassengerDTO { Id = 2, FirstName = "Patrick", LastName = "Pater", DocumentNo = "5455", HesKodu = "454rfgdfg", Phone = "05389455342" };
-            return Task.FromResult(passenger);
-        }
-
-        public Task<int> SaveAsync(PassengerDTO item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<int> UpdateAsync(PassengerDTO item)
-        {
-            throw new NotImplementedException();
+        public Task<int> DeleteAsync(long id)
+        {            
+            endpoint += "api/Passenger?id=" + id.ToString() + "&userId=" + App.User.Id;
+            var responseTask = BaseAPIService.Delete<APIResponse>(endpoint, _cancellationToken);
+            return Task.FromResult(1);
         }
     }
 }

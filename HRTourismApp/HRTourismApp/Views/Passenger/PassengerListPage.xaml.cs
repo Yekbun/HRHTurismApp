@@ -9,11 +9,13 @@ namespace HRTourismApp.Views.Passenger
     public partial class PassengerListPage : ContentPage
     {
         private PassengerListViewModel passengerListViewModel;
+        private long _journeyId;
 
-        public PassengerListPage()
+        public PassengerListPage(long journeyId)
         {
             InitializeComponent();
-            passengerListViewModel = new PassengerListViewModel();
+            _journeyId = journeyId;
+            passengerListViewModel = new PassengerListViewModel(_journeyId);
         }
 
         protected override async void OnAppearing()
