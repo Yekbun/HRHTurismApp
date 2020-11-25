@@ -7,24 +7,25 @@ using Xamarin.Forms;
 using HRTourismApp.Views.Journey;
 using HRTourismApp.Views.TakePicture;
 using HRTourismApp.Views.Settings;
+using HRTourismApp.Helpers;
 
 namespace HRTourismApp.ViewModels
 {
     public class MainMenuViewModel : BaseViewModel
     {
-        public void btnBooking_clicked(object sender, EventArgs e)
+        public async void btnBooking_clicked(object sender, EventArgs e)
         {
-            App.Current.MainPage = new NavigationPage(new MediaPage());
+           await NavigationHelper.PushAsyncSingle(new MediaPage());
         }
 
-        public void btnJourney_clicked(object sender, EventArgs e)
+        public async void btnJourney_clicked(object sender, EventArgs e)
         {
-            App.Current.MainPage = new NavigationPage(new JourneyListPage());
+            await NavigationHelper.PushAsyncSingle(new JourneyListPage());
         }
         
-        public void btnSettings_clicked(object sender, EventArgs e)
+        public async void btnSettings_clicked(object sender, EventArgs e)
         {
-            App.Current.MainPage = new NavigationPage(new UploadLookupsPage());
+            await NavigationHelper.PushAsyncSingle(new UploadLookupsPage());
         }
 
     }

@@ -17,10 +17,10 @@ namespace HRTourismApp.ViewModels.Journey
 {
     public class JourneyListViewModel : BaseViewModel
     {
-        private List<JourneyDTO> journeyList;
+        private List<JourneyDTO> _journeyList;
         public List<JourneyDTO> JourneyList
         {
-            get { return journeyList; }
+            get { return _journeyList; }
             set { OnPropertyChanged(); }
         }
 
@@ -35,18 +35,54 @@ namespace HRTourismApp.ViewModels.Journey
 
         public JourneyListViewModel()
         {
+            try { 
             journeyService = new JourneyService();
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
 
         private async void addJourney()
         {
-            await NavigationHelper.PushAsyncSingle(new JourneyPage());
-        }       
+            try
+            {
+                await NavigationHelper.PushAsyncSingle(new JourneyPage());
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }   
         public async Task<List<JourneyDTO>> GetAllJourney()
         {
-            journeyList = await journeyService.GetAllJourney();
-            return journeyList;
-
+            try
+            {
+                _journeyList = await journeyService.GetAllJourney();
+                foreach (var item in _journeyList)
+                {
+                    if (item.RecordStatus == 0)
+                        item.RecordStatusStr = "Basarili";
+                    else if (item.RecordStatus == -1)
+                        item.RecordStatusStr = "Basarisiz";
+                    else if (item.RecordStatus == 1)
+                        item.RecordStatusStr = "Yeni Bekliyor";
+                    else if (item.RecordStatus == 2)
+                        item.RecordStatusStr = "Guncelleme Bekliyor";
+                    else if (item.RecordStatus == 3)
+                        item.RecordStatusStr = "Iptal Bekliyor";
+                    else if (item.RecordStatus == 4)
+                        item.RecordStatusStr = "Iptal Edilmis";
+                    else
+                        item.RecordStatusStr = "";
+                }
+                return _journeyList;
+            }
+            catch(Exception ex)
+            {
+                throw (ex);
+            }
             /*
             HRTourismApp.APIServices.APIResponse apiResponse = await BookingService.DeleteBooking(0);
             if (apiResponse != null && apiResponse.Success)
@@ -65,7 +101,14 @@ namespace HRTourismApp.ViewModels.Journey
         }
         public async void GetSelectedJourney(JourneyDTO journey)
         {
-            await NavigationHelper.PushAsyncSingle(new JourneyPage(journey));
-        }       
+            try
+            {
+                await NavigationHelper.PushAsyncSingle(new JourneyPage(journey));
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
     }
 }

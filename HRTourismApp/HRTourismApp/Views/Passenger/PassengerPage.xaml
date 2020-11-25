@@ -5,23 +5,16 @@
     <ContentPage.Content>
         <StackLayout >
              <Button x:Name="btnOCR" Text="ID Oku" Command="{Binding AddPassengerCommand}" BackgroundColor="LightGreen" IsVisible="false"/>
-            <Label Text="Adi"/>
-            <Entry Text="{Binding Passenger.FirstName}"></Entry>            
-            <Label Text="Soyadi"/>
-            <Entry Text="{Binding Passenger.LastName}"></Entry>            
-            <Label Text="Uyruk"/>
-            <Picker Title="Ulke seciniz" x:Name="CountryEntry"           
+            <Entry Text="{Binding Passenger.FirstName}"  Placeholder="Yolcu Adı" ></Entry>
+            <Entry Text="{Binding Passenger.LastName}" Placeholder="Yolcu Soyadı"></Entry>
+            <Picker Title="Uyruk Seçiniz" x:Name="pickerCountry" FontSize="Large"         
                 ItemsSource="{Binding CountryList}"
                 ItemDisplayBinding="{Binding Name}" 
-                SelectedIndexChanged="CountryEntry_SelectedIndexChanged" />            
-            <Label Text="TCKN\Pasaport"/>
-                <Entry Text="{Binding Passenger.DocumentNo}"></Entry>            
-            <Label Text="Telefon"/>
-                <Entry Text="{Binding Passenger.Phone}"/>            
-            <Label Text="Hes Kodu"/>
-                <Entry Text="{Binding Passenger.HesKodu}"/>            
-            <Label Text="Cinsiyet"/>
-            <Picker x:Name="pickerGender" Title="Seciniz" SelectedIndexChanged="pickerGender_SelectedIndexChanged" >
+                SelectedIndexChanged="pickerCountry_SelectedIndexChanged" />            
+            <Entry Text="{Binding Passenger.DocumentNo}" Placeholder="TCKN\Pasaport"></Entry>            
+            <Entry Text="{Binding Passenger.Phone}" Placeholder="Telefon" Keyboard="Telephone" />            
+            <Entry Text="{Binding Passenger.HesKodu}" Placeholder="Hes Kodu"/>
+            <Picker x:Name="pickerGender" FontSize="Large" Title="Cinsiyet Seçiniz" SelectedIndexChanged="pickerGender_SelectedIndexChanged" >
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">
                         <x:String>Kadin</x:String>

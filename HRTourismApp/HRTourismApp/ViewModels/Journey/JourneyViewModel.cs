@@ -143,7 +143,12 @@ namespace HRTourismApp.ViewModels.Journey
                     createdId = await _journeyService.SaveAsync(Journey);
                 }
                 else
-                {
+                {                   
+                    if (Journey.Description == "")
+                    {
+                        MessageNotificationHelper.ShowMessageSuccess("Açiklama bilgisi boş olamaz!!");
+                        return;
+                    }
                     // update a journey
                     createdId = await _journeyService.UpdateAsync(Journey);
                 }              

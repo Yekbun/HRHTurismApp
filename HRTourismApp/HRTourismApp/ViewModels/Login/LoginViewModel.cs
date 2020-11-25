@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Xamarin.Forms;
 using HRTourismApp.Views;
 using HRTourismApp.Models;
+using HRTourismApp.Services;
 
 namespace HRTourismApp.ViewModels
 {
@@ -14,52 +15,56 @@ namespace HRTourismApp.ViewModels
     {
         public Action DisplayInvalidLoginPrompt;
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
-        private string email;
+        private string _userName;
+        private string _password;
+        private LoginService _loginService;
         public string Email
         {
-            get { return email; }
+            get { return _userName; }
             set
             {
-                email = value;
+                _userName = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Email"));
             }
         }
-        private string password;
+
         public string Password
         {
-            get { return password; }
+            get { return _password; }
             set
             {
-                password = value;
+                _password = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("Password"));
             }
         }
         public ICommand SubmitCommand { protected set; get; }
         public LoginViewModel()
         {
+            _loginService = new LoginService();
             SubmitCommand = new Command(OnSubmit);
         }
         public void OnSubmit()
         {
-            if (email != "1" || password != "1")
+            if (string.IsNullOrEmpty(_userName) || string.IsNullOrEmpty(_password))
             {
                 DisplayInvalidLoginPrompt();
             }
             else
             {
-                //await Navigation.PushAsync(new MainMenu());
+                UserDTO loginedUser = null;
+                LoginDTO login = new LoginDTO { UserName = _userName, Password = _password };
+                loginedUser = _loginService.Login(login);
+                if (loginedUser != null)
+                {
+                    App.IsUserLoggedIn = true;
+                    App.User = loginedUser;
+                    //App.User = new UserDTO { Id = 55, CompanyId = 8, CompanyName = "Firma 4 Yolcu Tasimacili", Email = "olcayyf @hotmail.com", NameSurname = "Feryat Olcay", Phone = "05378217440", RoleId = 1 };
 
-                //new NavigationPage(new MainMenu());
-                //Application.Current.MainPage.Navigation.PushAsync(new MainMenu());
-
-                App.IsUserLoggedIn = true;
-                
-                App.User = new UserDTO { Id = 55, CompanyId = 8, CompanyName = "Firma 4 Yolcu Tasimacili", Email = "olcayyf @hotmail.com", NameSurname = "Feryat Olcay", Phone = "05378217440", RoleId = 1 };
-                //TODO:Login 
-                App.Current.MainPage = new NavigationPage(new MainMenu());
-
+                    App.Current.MainPage = new NavigationPage(new MainMenu());
+                }
             }
+
         }
-       
     }
+
 }

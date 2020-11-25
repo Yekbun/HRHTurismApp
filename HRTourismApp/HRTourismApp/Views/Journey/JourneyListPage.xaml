@@ -8,7 +8,7 @@
              Title="Yolculuklar">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Yeni Yolculuk" Command="{Binding AddCommand}"/>
+        <ToolbarItem Text="Yeni Ekle" Command="{Binding AddCommand}"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
@@ -29,6 +29,7 @@
                             <Label Text="{Binding StartDate}" />
                             <Label Text="{Binding FinishDate}" />
                             <Label Text="{Binding Fees}" />
+                            <Label Text="{Binding RecordStatusStr}" />
                             <Button Text="Yolcular" Command="{Binding ShowPassengers}" />
                            
                         </StackLayout>

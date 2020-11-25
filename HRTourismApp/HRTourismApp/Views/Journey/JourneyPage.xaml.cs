@@ -27,9 +27,13 @@ namespace HRTourismApp.Views.Journey
             Title = "Yeni Yolculuk";
             btnSave.IsVisible = true;
             btnCancel.IsVisible = false;
-            btnUpdate.IsVisible = false;
+            btnUpdate.IsVisible = false;       
+            entDescription.IsVisible = false;
+
             _journeyViewModel.Journey.StartDate = DateTime.Now;
-            _journeyViewModel.Journey.FinishDate = DateTime.Now;            
+            _journeyViewModel.Journey.FinishDate = DateTime.Now;
+            tpStartDate.Time = DateTime.Now.TimeOfDay;
+            tpFinishDate.Time = DateTime.Now.TimeOfDay;
 
             BindingContext = _journeyViewModel;
         }
@@ -45,11 +49,31 @@ namespace HRTourismApp.Views.Journey
             _journeyViewModel.Journey = journey;
 
             // Set default text
-            Title = "Yolculuk Güncelleme";
+            Title = "Yolculuk Güncelleme";            
             btnSave.IsVisible = false;
             btnCancel.IsVisible = true;
             btnUpdate.IsVisible = true;
-            BindingContext = _journeyViewModel;           
+              entDescription.IsVisible = true;
+
+            tpStartDate.Time = _journeyViewModel.Journey.StartDate.TimeOfDay; 
+            tpFinishDate.Time = _journeyViewModel.Journey.FinishDate.TimeOfDay;
+                      
+            BindingContext = _journeyViewModel;
+            for (int x = 0; x < _journeyViewModel.DriverList.Count; x++)
+            {
+                if (_journeyViewModel.DriverList[x].Id == _journeyViewModel.Journey.DriverId)
+                {
+                    pickerDriver.SelectedIndex = x;
+                }
+            }
+            for (int x = 0; x < _journeyViewModel.VehicleList.Count; x++)
+            {
+                if (_journeyViewModel.VehicleList[x].Id == _journeyViewModel.Journey.VehicleId)
+                {
+                    pickerVehicle.SelectedIndex = x;
+                }
+            }
+           
         }
 
         private void pickerDriver_SelectedIndexChanged(object sender, EventArgs e)

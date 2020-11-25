@@ -10,6 +10,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using HRTourismApp.ViewModels.Journey;
 using HRTourismApp.Models.Core;
+using HRTourismApp.Helpers;
 
 namespace HRTourismApp.Views.Journey
 {
@@ -26,19 +27,34 @@ namespace HRTourismApp.Views.Journey
 
         protected override async void OnAppearing()
         {
-            base.OnAppearing();
+            try
+            {
+                base.OnAppearing();
 
-            journeyListViewModel.JourneyList = await journeyListViewModel.GetAllJourney();
-            BindingContext = journeyListViewModel;
+                journeyListViewModel.JourneyList = await journeyListViewModel.GetAllJourney();
+                BindingContext = journeyListViewModel;
+            }
+            catch (Exception ex)
+            {
+                MessageNotificationHelper.ShowMessageError(ex.Message);
+            }
+
         }
 
         private void ListViewJourney_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            JourneyDTO item = (JourneyDTO)e.Item;
-            if (item == null)
-                return;
+            try
+            {
+                JourneyDTO item = (JourneyDTO)e.Item;
+                if (item == null)
+                    return;
 
-            journeyListViewModel.GetSelectedJourney(item);
+                journeyListViewModel.GetSelectedJourney(item);                
+            }
+            catch (Exception ex)
+            {
+                MessageNotificationHelper.ShowMessageError(ex.Message);
+            }
         }
         
 

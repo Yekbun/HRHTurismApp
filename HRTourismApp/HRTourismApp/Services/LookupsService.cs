@@ -8,8 +8,7 @@ using System.Threading;
 
 namespace HRTourismApp.Services
 {
-
-    public class LookupsService
+       public class LookupsService
     {
         private string endpoint = Constants.BASE_API_URL;
         private static CancellationToken _cancellationToken;
@@ -31,7 +30,7 @@ namespace HRTourismApp.Services
                 throw (ex);
             }
         }
-
+        //TODO:Singleton olacak
         public List<CountryDTO> GetCountry()
         {
             if (FileIOHelper.FileExists(_countryFileName) == false)
