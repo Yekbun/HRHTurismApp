@@ -20,13 +20,14 @@ namespace HRTourismApp.Models.Core
         public string From { get; set; }
         public string To { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime StartDateTime { get; set; }
+        public string StartDateTime { get; set; }
         public DateTime FinishDate { get; set; }
-        public DateTime FinishDateTime { get; set; }
+        public string FinishDateTime { get; set; }
         public decimal Fees { get; set; }
         public long SeferReferansNo { get; set; }
         public string Description { get; set; }
         public int RecordStatus { get; set; }
+        public string RecordStatusStr { get; set; }
         public int UserId { get; set; }
 
       

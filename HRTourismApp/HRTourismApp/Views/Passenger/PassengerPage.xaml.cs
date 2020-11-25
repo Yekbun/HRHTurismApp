@@ -42,15 +42,19 @@ namespace HRTourismApp.Views.Passenger
                 Title = "Yolcu Görüntüle";
                 btnSave.IsVisible = false;
                 btnCancel.IsVisible = true;
+                if (passenger.Gender == "K")
+                    pickerGender.SelectedIndex = 0;
+                else
+                    pickerGender.SelectedIndex = 1;
+
                 BindingContext = _passengerViewModel;
 
-                if (passenger.Gender == "K")
+                for (int x = 0; x < _passengerViewModel.CountryList.Count; x++)
                 {
-                    pickerGender.SelectedIndex = 0;
-                }
-                else
-                {
-                    pickerGender.SelectedIndex = 1;
+                    if (_passengerViewModel.CountryList[x].Id == _passengerViewModel.Passenger.CountryId)
+                    {
+                        pickerCountry.SelectedIndex = x;
+                    }
                 }
             }
             catch (Exception ex)
@@ -68,7 +72,7 @@ namespace HRTourismApp.Views.Passenger
                 _passengerViewModel.Passenger.Gender = "E";
         }
 
-        private void CountryEntry_SelectedIndexChanged(object sender, EventArgs e)
+        private void pickerCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             var picker = (Picker)sender;
             if (picker.SelectedIndex > 0)
