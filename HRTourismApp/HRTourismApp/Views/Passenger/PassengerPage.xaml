@@ -4,7 +4,7 @@
              x:Class="HRTourismApp.Views.Passenger.PassengerPage">
     <ContentPage.Content>
         <StackLayout >
-             <Button x:Name="btnOCR" Text="ID Oku" Command="{Binding AddPassengerCommand}" BackgroundColor="LightGreen" IsVisible="false"/>
+            <ImageButton x:Name="btnTakePicture" Source="camera.png" HorizontalOptions="Center"  Clicked="btnTakePicture_Clicked"></ImageButton>
             <Entry Text="{Binding Passenger.FirstName}"  Placeholder="Yolcu Adı" ></Entry>
             <Entry Text="{Binding Passenger.LastName}" Placeholder="Yolcu Soyadı"></Entry>
             <Picker Title="Uyruk Seçiniz" x:Name="pickerCountry" FontSize="Large"         

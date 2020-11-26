@@ -12,7 +12,30 @@ namespace HRTourismApp.Services
     public class PassengerService
     {
         private string endpoint = Constants.BASE_API_URL;
-        private static CancellationToken _cancellationToken;        
+        private static CancellationToken _cancellationToken;
+
+        private Task<List<PassengerDTO>> getMockData()
+        {
+            List<PassengerDTO> list = new List<PassengerDTO>();
+
+            list.Add(new PassengerDTO
+            {
+                Id = 41, JourneyId = 69, LastName = "Olcay", FirstName = "Feryat", HesKodu="HES-1", Phone = "0212535345", CountryId = 226, Gender = "K" ,SeatNumber=1    
+            });
+            list.Add(new PassengerDTO
+            {
+                Id = 42,
+                JourneyId = 69,
+                LastName = "Pater",
+                FirstName = "Patrick",
+                HesKodu = "HES-2",
+                Phone = "0212535345",
+                CountryId = 242,
+                Gender = "E",
+                SeatNumber = 2
+            });
+            return Task.FromResult(list);
+        }
 
         public PassengerService()
         {            
@@ -20,9 +43,13 @@ namespace HRTourismApp.Services
         }
         public Task<List<PassengerDTO>> GetAllPassengerAsync(long journeyId)
         {
+#if DEBUG
+            return getMockData();
+#else
             endpoint = Constants.BASE_API_URL + "api/Journey/" + journeyId + "/Passengers";
             var responseTask = BaseAPIService.Get<List<PassengerDTO>>(endpoint, _cancellationToken);
             return Task.FromResult(responseTask.Result);
+#endif
         }
 
         public Task<PassengerDTO> GetPassengerAsync(long id)

@@ -4,13 +4,19 @@ using HRTourismApp.ViewModels.Passenger;
 using HRTourismApp.Models;
 using HRTourismApp.Helpers;
 using System;
+using Plugin.Media;
+
+using HRTourismApp.Helpers.OCR;
+using HRTourismApp.Services;
+using Plugin.Media.Abstractions;
+using HRTourismApp.Helper.OCR;
 
 namespace HRTourismApp.Views.Passenger
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class PassengerPage : ContentPage
     {
-        private PassengerViewModel _passengerViewModel;        
+        private PassengerViewModel _passengerViewModel;
         public PassengerPage(long journeyId)
         {
             InitializeComponent();
@@ -25,7 +31,7 @@ namespace HRTourismApp.Views.Passenger
                 _passengerViewModel.Passenger.JourneyId = journeyId;
                 BindingContext = _passengerViewModel;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageNotificationHelper.ShowMessageError(ex.Message);
             }
@@ -56,6 +62,7 @@ namespace HRTourismApp.Views.Passenger
                         pickerCountry.SelectedIndex = x;
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -65,8 +72,8 @@ namespace HRTourismApp.Views.Passenger
 
         private void pickerGender_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            var picker = (Picker)sender;            
-            if(picker.SelectedIndex==0)
+            var picker = (Picker)sender;
+            if (picker.SelectedIndex == 0)
                 _passengerViewModel.Passenger.Gender = "K";
             else
                 _passengerViewModel.Passenger.Gender = "E";
@@ -77,10 +84,72 @@ namespace HRTourismApp.Views.Passenger
             var picker = (Picker)sender;
             if (picker.SelectedIndex > 0)
             {
-                _passengerViewModel.Passenger.CountryId= ((CountryDTO)picker.SelectedItem).Id;
+                _passengerViewModel.Passenger.CountryId = ((CountryDTO)picker.SelectedItem).Id;
                 _passengerViewModel.Passenger.CountryName = ((CountryDTO)picker.SelectedItem).Name;
             }
 
         }
+
+        public async void TakePicture()
+        {
+            if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+            {
+                await DisplayAlert("No Camera", ":( No camera available.", "OK");
+                return;
+            }
+
+            var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+            {
+                Directory = "Test",
+                SaveToAlbum = true,
+                CompressionQuality = 75,
+                CustomPhotoSize = 50,
+                PhotoSize = PhotoSize.MaxWidthHeight,
+                MaxWidthHeight = 2000,
+                DefaultCamera = CameraDevice.Front
+            });
+
+            if (file == null)
+                return;
+            string filePath = file.Path;
+            await DisplayAlert("File Location", file.Path, "OK");
+            /*
+            image.Source = ImageSource.FromStream(() =>
+            {
+                var stream = file.GetStream();
+                file.Dispose();
+                return stream;
+            });
+            */
+            ILocalFileProvider service = DependencyService.Get<ILocalFileProvider>(DependencyFetchTarget.NewInstance);
+            byte[] byteArray = null;
+            using (service as IDisposable)
+            {
+                byteArray = service.GetFileBytes(filePath);
+            }
+
+            MRZParser mrzParser = new MRZParser();
+#if DEBUG
+            string retVal = "P<RUSMALBORSKYI<<KOVBOJ<<<<<<<<<<<<<<<<<<<<<7553279419RUS8712242M2104131<<<<<<<<<<<<<<02";
+            var Return = mrzParser.Parse(retVal);
+
+            retVal = "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<L898902C<3UTO6908061F9406236ZE184226B<<<<<14";
+            Return = mrzParser.Parse(retVal);
+#else
+            FreeOCR free = new FreeOCR();
+            string retVal = await free.SendImageAsync(byteArray);            
+            IDeleteFromFile deleteService = DependencyService.Get<IDeleteFromFile>(DependencyFetchTarget.NewInstance);
+            using (deleteService as IDisposable)
+            {
+                deleteService.DeleteFile(filePath);
+            }         
+#endif
+        }
+
+        private void btnTakePicture_Clicked(object sender, EventArgs e)
+        {
+            TakePicture();
+        }
+
     }
 }

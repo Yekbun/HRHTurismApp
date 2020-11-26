@@ -30,6 +30,17 @@ namespace HRTourismApp.Services
             list.Add(new UserDTO { Id = 129, NameSurname = "Surucu1", Phone = "05378217440", CompanyId = 8, Email = "olcayyf@hotmail.com" });
             return list;
         }
+        private List<CountryDTO> getCountryMockData()
+        {
+            List<CountryDTO> list = new List<CountryDTO>();
+
+            list.Add(new CountryDTO { Id = 226,  Name= "Türkiye", Code="TUR"});
+            list.Add(new CountryDTO { Id = 242, Name = "Afghanistan", Code="AFG"});
+
+             
+            return list;
+        }
+
         public List<VehicleDTO> GetVehicles()
         {
 #if DEBUG
@@ -51,6 +62,9 @@ namespace HRTourismApp.Services
         //TODO:Singleton olacak
         public List<CountryDTO> GetCountry()
         {
+#if DEBUG
+            return getCountryMockData();
+#else
             if (FileIOHelper.FileExists(_countryFileName) == false)
                 UpdateCountries();
             try
@@ -62,6 +76,7 @@ namespace HRTourismApp.Services
             {
                 throw (ex);
             }
+#endif
         }
         public List<UserDTO> GetDrivers()
         {

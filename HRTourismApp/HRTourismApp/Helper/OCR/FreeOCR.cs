@@ -33,12 +33,9 @@ namespace HRTourismApp.Helpers.OCR
                 //    byte[] imageData = File.ReadAllBytes(ImagePath);
                 form.Add(new ByteArrayContent(imageData, 0, imageData.Length), "image", "image.jpg");
 
-
                 HttpResponseMessage response = await httpClient.PostAsync("https://api.ocr.space/Parse/Image", form);
-
                 string strContent = await response.Content.ReadAsStringAsync();
                 Rootobject ocrResult = JsonConvert.DeserializeObject<Rootobject>(strContent);
-
 
                 if (ocrResult.OCRExitCode == 1)
                 {
