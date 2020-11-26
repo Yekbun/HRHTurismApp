@@ -102,7 +102,7 @@ namespace HRTourismApp.ViewModels.Journey
         public async void GetSelectedJourney(JourneyDTO journey)
         {
             try
-            {
+            {                
                 await NavigationHelper.PushAsyncSingle(new JourneyPage(journey));
             }
             catch (Exception ex)
