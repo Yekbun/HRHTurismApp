@@ -13,7 +13,42 @@ namespace HRTourismApp.Services
     public class JourneyService //: IBaseCrud<JourneyModal> TODO: buna bir bak
     {
         private string endpoint = Constants.BASE_API_URL + "api/Journey";
-        private static CancellationToken _cancellationToken;
+        private static CancellationToken _cancellationToken; // TODO: online ortamda static ozelligini kaldirip dene
+
+        private Task<List<JourneyDTO>> getMockData()
+        {
+            List<JourneyDTO> list = new List<JourneyDTO>();
+
+            list.Add(new JourneyDTO
+            {
+                Id = 69,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 TX1258",
+                CompanyId = 8,
+                From = "Şirinevler, Bahçelievler/İstanbul",
+                To = "Mecidiyeköy, Şişli/İstanbul",
+                StartDate = Convert.ToDateTime("2020-11-11 17:00:00"),
+                FinishDate = Convert.ToDateTime("2020-11-11 17:30:00"),
+                Fees = 250
+            });
+            list.Add(new JourneyDTO
+            {
+                Id = 70,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 KL23",
+                CompanyId = 8,
+                From = "Şirinevler, Bahçelievler/İstanbul",
+                To = "Mecidiyeköy, Şişli/İstanbul",
+                StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
+                FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
+                Fees = 250
+            });
+            return Task.FromResult(list);
+        }
 
         public JourneyService()
         {
@@ -22,6 +57,9 @@ namespace HRTourismApp.Services
 
         public Task<List<JourneyDTO>> GetAllJourney(/*Pagination pagination = null,*/)
         {
+#if DEBUG
+            return getMockData();
+#else
             try
             {
                 endpoint = Constants.BASE_API_URL + "api/company/" + App.User.CompanyId + "/Journeys";
@@ -36,7 +74,8 @@ namespace HRTourismApp.Services
             catch (Exception ex)
             {
                 throw (ex);
-            }
+            } 
+#endif
         }
 
         public Task<int> DeleteAsync(long id, string cancelDesc)
@@ -72,9 +111,6 @@ namespace HRTourismApp.Services
             try
             {
                 journey.UserId = App.User.Id;
-                journey.From = "Şirinevler, Bahçelievler/İstanbul";
-                journey.To = "Mecidiyeköy, Şişli/İstanbul";
-
                 var response = BaseAPIService.Post<APIResponse>(endpoint, journey, _cancellationToken);
                 response.Wait();
                 if (response.Result != null)

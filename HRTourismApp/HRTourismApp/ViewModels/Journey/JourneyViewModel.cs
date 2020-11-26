@@ -10,7 +10,7 @@ using HRTourismApp.Models;
 
 namespace HRTourismApp.ViewModels.Journey
 {
-   public class JourneyViewModel: BaseViewModel
+   public partial class JourneyViewModel: BaseViewModel
     {        
         private JourneyService _journeyService;
         private UserDTO _selectedDriver;
@@ -80,8 +80,11 @@ namespace HRTourismApp.ViewModels.Journey
 
             _driverList = _lookService.GetDrivers();
             _vehicleList= _lookService.GetVehicles();
-        }
 
+            GetPlacesCommand = new Command<string>(async (param) => await GetPlacesByName(param));
+            ShowListView = false;
+            ShowOthers = !ShowListView;            
+        }
 
         private async void saveJourney()
         {

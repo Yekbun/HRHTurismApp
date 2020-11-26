@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 using HRTourismApp.ViewModels.Journey;
 using HRTourismApp.Models.Core;
 using HRTourismApp.Models;
+using HRTourismApp.Services.GoogleMaps;
 
 namespace HRTourismApp.Views.Journey
 {
@@ -42,22 +43,22 @@ namespace HRTourismApp.Views.Journey
         {
             if (journey == null)
                 return;
-
-            InitializeComponent();           
+            
+            InitializeComponent();
 
             _journeyViewModel = new JourneyViewModel();
             _journeyViewModel.Journey = journey;
 
             // Set default text
-            Title = "Yolculuk Güncelleme";            
+            Title = "Yolculuk Güncelleme";
             btnSave.IsVisible = false;
             btnCancel.IsVisible = true;
             btnUpdate.IsVisible = true;
-              entDescription.IsVisible = true;
+            entDescription.IsVisible = true;
 
-            tpStartDate.Time = _journeyViewModel.Journey.StartDate.TimeOfDay; 
+            tpStartDate.Time = _journeyViewModel.Journey.StartDate.TimeOfDay;
             tpFinishDate.Time = _journeyViewModel.Journey.FinishDate.TimeOfDay;
-                      
+           
             BindingContext = _journeyViewModel;
             for (int x = 0; x < _journeyViewModel.DriverList.Count; x++)
             {
@@ -73,7 +74,11 @@ namespace HRTourismApp.Views.Journey
                     pickerVehicle.SelectedIndex = x;
                 }
             }
-           
+            txtFrom.Text = _journeyViewModel.Journey.From;
+            txtTo.Text = _journeyViewModel.Journey.To;
+
+            _journeyViewModel.ShowListView = false;
+            _journeyViewModel.ShowOthers = true;            
         }
 
         private void pickerDriver_SelectedIndexChanged(object sender, EventArgs e)
@@ -94,6 +99,24 @@ namespace HRTourismApp.Views.Journey
                 _journeyViewModel.Journey.VehicleId = ((VehicleDTO)picker.SelectedItem).Id;
                 _journeyViewModel.Journey.VehiclePlaque = ((VehicleDTO)picker.SelectedItem).Plaque;
             }
+        }
+        private void list_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var item = e.SelectedItem;
+            if (_journeyViewModel.IsPickupFocused == true)
+            {
+                _journeyViewModel.FromLocation = ((GooglePlaceAutoCompletePrediction)item).Description;
+                txtFrom.Text = _journeyViewModel.FromLocation;
+                _journeyViewModel.Journey.From = _journeyViewModel.FromLocation;
+            }
+            else
+            {
+                _journeyViewModel.ToLocation = ((GooglePlaceAutoCompletePrediction)item).Description;
+                txtTo.Text = _journeyViewModel.ToLocation;
+                _journeyViewModel.Journey.To = _journeyViewModel.ToLocation;
+            }
+            _journeyViewModel.ShowListView = false;
+            _journeyViewModel.ShowOthers = true;
         }
     }
 }

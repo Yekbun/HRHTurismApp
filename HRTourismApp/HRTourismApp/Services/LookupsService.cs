@@ -16,8 +16,25 @@ namespace HRTourismApp.Services
         private const string _vehicleFileName = "Vehicle.json";
         private const string _driversFileName = "Driver.json";
 
+        private List<VehicleDTO> getVehicleMockData()
+        {
+            List<VehicleDTO> list = new List<VehicleDTO>();
+
+            list.Add(new VehicleDTO { Id=35, Plaque="CR472569" });
+            list.Add(new VehicleDTO { Id = 34, Plaque="34ABC14" });
+            return list;
+        }
+        private List<UserDTO> getDriverMockData()
+        {
+            List<UserDTO> list = new List<UserDTO>();            
+            list.Add(new UserDTO { Id = 129, NameSurname = "Surucu1", Phone = "05378217440", CompanyId = 8, Email = "olcayyf@hotmail.com" });
+            return list;
+        }
         public List<VehicleDTO> GetVehicles()
         {
+#if DEBUG
+            return getVehicleMockData();
+#else
             if (FileIOHelper.FileExists(_vehicleFileName) == false)
                 UpdateVehicles();
             try
@@ -29,6 +46,7 @@ namespace HRTourismApp.Services
             {
                 throw (ex);
             }
+#endif
         }
         //TODO:Singleton olacak
         public List<CountryDTO> GetCountry()
@@ -47,6 +65,10 @@ namespace HRTourismApp.Services
         }
         public List<UserDTO> GetDrivers()
         {
+#if DEBUG
+
+            return getDriverMockData();
+#else
             if (FileIOHelper.FileExists(_driversFileName) == false)
                 UpdateDrivers();
 
@@ -59,6 +81,7 @@ namespace HRTourismApp.Services
             {
                 throw (ex);
             }
+#endif
         }
 
         public async void UpdateVehicles()
