@@ -31,7 +31,7 @@ namespace HRTourismApp.Views.Journey
             {
                 base.OnAppearing();
 
-                journeyListViewModel.JourneyList = await journeyListViewModel.GetAllJourney();
+                journeyListViewModel.JourneyList = await journeyListViewModel.GetAllJourney(); // TODO:Sadece kendi bilgilerini gorecek
                 BindingContext = journeyListViewModel;
             }
             catch (Exception ex)

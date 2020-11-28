@@ -11,11 +11,7 @@
             <StackLayout>
                 <Label Text="Uygulama Ayarlari" FontSize="Large" HorizontalTextAlignment="Center"></Label>
                 <Label></Label>
-            </StackLayout>
-            <StackLayout>
-                <Label Text="Güncel ülke bilgilerini merkezi sistemden almak için aşağıdaki buttonu kullanın." FontSize="Small" HorizontalTextAlignment="Start" ></Label>                         
-                <Button x:Name="btnCountry" Text="Ulkeleri Guncelle" BackgroundColor="Coral" Clicked="btnCountry_Clicked"></Button>                
-            </StackLayout>
+            </StackLayout>          
             <StackLayout>
                 <Label Text="Güncel araç bilgilerini merkezi sistemden almak için aşağıdaki buttonu kullanın." FontSize="Small" HorizontalTextAlignment="Start"></Label>
                 <Button x:Name="btnVehicle" Text="Araçlari Güncelle" BackgroundColor="Blue" Clicked="btnVehicle_Clicked"></Button>

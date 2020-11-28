@@ -13,7 +13,7 @@ namespace HRTourismApp.Models
         public long JourneyId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int CountryId { get; set; }
+        public string CountryCode { get; set; }
         public string CountryName { get; set; }
         public string Phone { get; set; }
         public string DocumentNo { get; set; }

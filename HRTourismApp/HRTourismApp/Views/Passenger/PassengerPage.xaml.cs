@@ -48,7 +48,7 @@ namespace HRTourismApp.Views.Passenger
                 Title = "Yolcu Görüntüle";
                 btnSave.IsVisible = false;
                 btnCancel.IsVisible = true;
-                if (passenger.Gender == "K")
+                if (passenger.Gender == "F")
                     pickerGender.SelectedIndex = 0;
                 else
                     pickerGender.SelectedIndex = 1;
@@ -57,7 +57,7 @@ namespace HRTourismApp.Views.Passenger
 
                 for (int x = 0; x < _passengerViewModel.CountryList.Count; x++)
                 {
-                    if (_passengerViewModel.CountryList[x].Id == _passengerViewModel.Passenger.CountryId)
+                    if (_passengerViewModel.CountryList[x].Id == _passengerViewModel.Passenger.CountryCode)
                     {
                         pickerCountry.SelectedIndex = x;
                     }
@@ -74,9 +74,9 @@ namespace HRTourismApp.Views.Passenger
         {
             var picker = (Picker)sender;
             if (picker.SelectedIndex == 0)
-                _passengerViewModel.Passenger.Gender = "K";
+                _passengerViewModel.Passenger.Gender = "F";
             else
-                _passengerViewModel.Passenger.Gender = "E";
+                _passengerViewModel.Passenger.Gender = "M";
         }
 
         private void pickerCountry_SelectedIndexChanged(object sender, EventArgs e)
@@ -84,7 +84,7 @@ namespace HRTourismApp.Views.Passenger
             var picker = (Picker)sender;
             if (picker.SelectedIndex > 0)
             {
-                _passengerViewModel.Passenger.CountryId = ((CountryDTO)picker.SelectedItem).Id;
+                _passengerViewModel.Passenger.CountryCode = ((CountryDTO)picker.SelectedItem).Code;
                 _passengerViewModel.Passenger.CountryName = ((CountryDTO)picker.SelectedItem).Name;
             }
 
@@ -112,7 +112,7 @@ namespace HRTourismApp.Views.Passenger
             if (file == null)
                 return;
             string filePath = file.Path;
-            await DisplayAlert("File Location", file.Path, "OK");
+            //await DisplayAlert("File Location", file.Path, "OK");
             /*
             image.Source = ImageSource.FromStream(() =>
             {
@@ -129,21 +129,30 @@ namespace HRTourismApp.Views.Passenger
             }
 
             MRZParser mrzParser = new MRZParser();
+            MRZResult ocrResult = new MRZResult();
+            string retVal = "";
 #if DEBUG
-            string retVal = "P<RUSMALBORSKYI<<KOVBOJ<<<<<<<<<<<<<<<<<<<<<7553279419RUS8712242M2104131<<<<<<<<<<<<<<02";
-            var Return = mrzParser.Parse(retVal);
+            retVal = "P<RUSMALBORSKYI<<KOVBOJ<<<<<<<<<<<<<<<<<<<<<7553279419RUS8712242M2104131<<<<<<<<<<<<<<02";
+            ocrResult = mrzParser.Parse(retVal);
 
             retVal = "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<L898902C<3UTO6908061F9406236ZE184226B<<<<<14";
-            Return = mrzParser.Parse(retVal);
+            ocrResult = mrzParser.Parse(retVal);
 #else
             FreeOCR free = new FreeOCR();
-            string retVal = await free.SendImageAsync(byteArray);            
+            retVal = await free.SendImageAsync(byteArray);            
             IDeleteFromFile deleteService = DependencyService.Get<IDeleteFromFile>(DependencyFetchTarget.NewInstance);
             using (deleteService as IDisposable)
             {
                 deleteService.DeleteFile(filePath);
             }         
+            ocrResult = mrzParser.Parse(retVal);
 #endif
+                        
+            _passengerViewModel.Passenger.CountryCode = ocrResult.IssuingCountryIso;
+            _passengerViewModel.Passenger.FirstName = ocrResult.FirstName;
+            _passengerViewModel.Passenger.LastName = ocrResult.LastName;
+            _passengerViewModel.Passenger.DocumentNo = ocrResult.DocumentNumber;            
+
         }
 
         private void btnTakePicture_Clicked(object sender, EventArgs e)

@@ -13,9 +13,9 @@ namespace HRTourismApp.Models.Core
     {
         public long Id { get; set; }
         public int DriverId { get; set; }
-        public string DriverName { get; set; } //TODO:Silinecek
+        public string DriverName { get; set; } 
         public int VehicleId { get; set; }
-        public string VehiclePlaque { get; set; }//TODO:Silinecek
+        public string VehiclePlaque { get; set; }
         public int CompanyId { get; set; }
         public string From { get; set; }
         public string To { get; set; }
@@ -28,9 +28,7 @@ namespace HRTourismApp.Models.Core
         public string Description { get; set; }
         public int RecordStatus { get; set; }
         public string RecordStatusStr { get; set; }
-        public int UserId { get; set; }
-
-      
+        public int UserId { get; set; }      
 
         public ICommand ShowPassengers
         {

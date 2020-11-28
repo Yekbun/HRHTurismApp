@@ -1,4 +1,5 @@
 ﻿using HRTourismApp.Models;
+using HRTourismApp.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,7 @@ namespace HRTourismApp.Helper.OCR
 {
     public class MRZParser
     {
-        private readonly Nationalities _nationalities = new Nationalities();
-
+        private readonly CountryService _countryService = new CountryService();
 
         private readonly Dictionary<char, int> _checkDigitArray = new Dictionary<char, int>();
 
@@ -46,7 +46,7 @@ namespace HRTourismApp.Helper.OCR
             };
 
             retVal.DocumentTypeDescription = DocumentTypeDescription(retVal.DocumentType);
-            retVal.IssuingCountryName = IssuingCountryName(retVal.IssuingCountryIso);
+            //retVal.IssuingCountryName = IssuingCountryName(retVal.IssuingCountryIso);
             retVal.NationalityName = NationalityName(retVal.NationalityIso);
 
             return retVal;
@@ -94,7 +94,7 @@ namespace HRTourismApp.Helper.OCR
 
         private string IssuingCountryName(string issIso)
         {
-            var natItem = _nationalities.NationalitybyCode(issIso);
+            var natItem = _countryService.GetCountryByCode(issIso);
             return natItem != null ? natItem.Name : string.Empty;
         }
 
@@ -130,7 +130,7 @@ namespace HRTourismApp.Helper.OCR
 
         private string NationalityName(string natIso)
         {
-            var natItem = _nationalities.NationalitybyCode(natIso);
+            var natItem = _countryService.GetCountryByCode(natIso);
             return natItem != null ? natItem.Name : string.Empty;
 
         }

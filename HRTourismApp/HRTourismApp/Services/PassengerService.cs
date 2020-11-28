@@ -20,7 +20,7 @@ namespace HRTourismApp.Services
 
             list.Add(new PassengerDTO
             {
-                Id = 41, JourneyId = 69, LastName = "Olcay", FirstName = "Feryat", HesKodu="HES-1", Phone = "0212535345", CountryId = 226, Gender = "K" ,SeatNumber=1    
+                Id = 41, JourneyId = 69, LastName = "Olcay", FirstName = "Feryat", HesKodu="HES-1", Phone = "0212535345", CountryCode = "TUR", DocumentNo="U15523125", Gender = "F" ,SeatNumber=1    
             });
             list.Add(new PassengerDTO
             {
@@ -30,10 +30,38 @@ namespace HRTourismApp.Services
                 FirstName = "Patrick",
                 HesKodu = "HES-2",
                 Phone = "0212535345",
-                CountryId = 242,
-                Gender = "E",
+                CountryCode = "POL",
+                DocumentNo = "I55523125",
+                Gender = "M",
                 SeatNumber = 2
             });
+            list.Add(new PassengerDTO
+            {
+                Id = 42,
+                JourneyId = 69,
+                LastName = "Umut",
+                FirstName = "Sapan",
+                HesKodu = "HES-3",
+                Phone = "02125465645",
+                CountryCode = "AFG",
+                DocumentNo = "I54565125",
+                Gender = "M",
+                SeatNumber = 3
+            });
+            list.Add(new PassengerDTO
+            {
+                Id = 42,
+                JourneyId = 69,
+                LastName = "Helin",
+                FirstName = "Sapan",
+                HesKodu = "HES-4",
+                Phone = "0213453535",
+                CountryCode = "KAT",
+                DocumentNo = "K54565125",
+                Gender = "F",
+                SeatNumber = 4
+            });
+
             return Task.FromResult(list);
         }
 
@@ -54,9 +82,16 @@ namespace HRTourismApp.Services
 
         public Task<PassengerDTO> GetPassengerAsync(long id)
         {
-            endpoint += "Passenger/" + id.ToString();
-            var responseTask = BaseAPIService.Get<PassengerDTO>(endpoint, _cancellationToken);
-            return Task.FromResult(responseTask.Result);
+            try
+            {
+                endpoint += "Passenger/" + id.ToString();
+                var responseTask = BaseAPIService.Get<PassengerDTO>(endpoint, _cancellationToken);
+                return Task.FromResult(responseTask.Result);
+            }
+            catch(Exception ex)
+            {
+                throw (ex);
+            }
         }
 
         public Task<int> SaveAsync(PassengerDTO passenger)

@@ -5,15 +5,15 @@
     <ContentPage.Content>
         <StackLayout >
             <ImageButton x:Name="btnTakePicture" Source="camera.png" HorizontalOptions="Center"  Clicked="btnTakePicture_Clicked"></ImageButton>
-            <Entry Text="{Binding Passenger.FirstName}"  Placeholder="Yolcu Adı" ></Entry>
-            <Entry Text="{Binding Passenger.LastName}" Placeholder="Yolcu Soyadı"></Entry>
-            <Picker Title="Uyruk Seçiniz" x:Name="pickerCountry" FontSize="Large"         
+            <Entry Text="{Binding Passenger.FirstName}"  Placeholder="Yolcu Adı"  FontSize="Medium" ></Entry>
+            <Entry Text="{Binding Passenger.LastName}" Placeholder="Yolcu Soyadı" FontSize="Medium"></Entry>
+            <Picker Title="Uyruk Seçiniz" x:Name="pickerCountry"         
                 ItemsSource="{Binding CountryList}"
                 ItemDisplayBinding="{Binding Name}" 
-                SelectedIndexChanged="pickerCountry_SelectedIndexChanged" />            
-            <Entry Text="{Binding Passenger.DocumentNo}" Placeholder="TCKN\Pasaport"></Entry>            
-            <Entry Text="{Binding Passenger.Phone}" Placeholder="Telefon" Keyboard="Telephone" />            
-            <Entry Text="{Binding Passenger.HesKodu}" Placeholder="Hes Kodu"/>
+                SelectedIndexChanged="pickerCountry_SelectedIndexChanged" />
+            <Entry Text="{Binding Passenger.DocumentNo}" Placeholder="TCKN\Pasaport" FontSize="Medium"></Entry>
+            <Entry Text="{Binding Passenger.Phone}" Placeholder="Telefon" Keyboard="Telephone" FontSize="Medium"/>
+            <Entry Text="{Binding Passenger.HesKodu}" Placeholder="Hes Kodu" FontSize="Medium"/>
             <Picker x:Name="pickerGender" FontSize="Large" Title="Cinsiyet Seçiniz" SelectedIndexChanged="pickerGender_SelectedIndexChanged" >
                 <Picker.ItemsSource>
                     <x:Array Type="{x:Type x:String}">

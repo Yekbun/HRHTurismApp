@@ -10,7 +10,7 @@ using HRTourismApp.Models.Core;
 
 namespace HRTourismApp.Services
 {
-    public class JourneyService //: IBaseCrud<JourneyModal> TODO: buna bir bak
+    public class JourneyService 
     {
         private string endpoint = Constants.BASE_API_URL + "api/Journey";
         private static CancellationToken _cancellationToken; // TODO: online ortamda static ozelligini kaldirip dene

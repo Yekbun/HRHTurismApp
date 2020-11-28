@@ -77,11 +77,11 @@ namespace HRTourismApp.ViewModels.Passenger
                 {
                     MessageNotificationHelper.ShowMessageFail("JourneyId bulunamadı.");
                 }
-                if (Passenger.CountryId == 0)
+                if (Passenger.CountryCode == "")
                 {
                     MessageNotificationHelper.ShowMessageFail("Ülke bilgisi boş olamaz.");
                 }
-                if (Passenger.CountryId == 0)
+                if (Passenger.DocumentNo == "")
                 {
                     MessageNotificationHelper.ShowMessageFail("Pasaport/Id bilgisi boş olamaz.");
                 }

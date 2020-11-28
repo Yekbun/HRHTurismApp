@@ -37,6 +37,7 @@ namespace HRTourismApp.Views.Journey
             tpFinishDate.Time = DateTime.Now.TimeOfDay;
 
             BindingContext = _journeyViewModel;
+            //TODO:Eger sofor ise sofor listesi cikmayacak
         }
 
         public JourneyPage(JourneyDTO journey)

@@ -11,8 +11,7 @@ namespace HRTourismApp.Services
        public class LookupsService
     {
         private string endpoint = Constants.BASE_API_URL;
-        private static CancellationToken _cancellationToken;
-        private const string _countryFileName= "Country.json";
+        private static CancellationToken _cancellationToken;        
         private const string _vehicleFileName = "Vehicle.json";
         private const string _driversFileName = "Driver.json";
 
@@ -29,17 +28,7 @@ namespace HRTourismApp.Services
             List<UserDTO> list = new List<UserDTO>();            
             list.Add(new UserDTO { Id = 129, NameSurname = "Surucu1", Phone = "05378217440", CompanyId = 8, Email = "olcayyf@hotmail.com" });
             return list;
-        }
-        private List<CountryDTO> getCountryMockData()
-        {
-            List<CountryDTO> list = new List<CountryDTO>();
-
-            list.Add(new CountryDTO { Id = 226,  Name= "Türkiye", Code="TUR"});
-            list.Add(new CountryDTO { Id = 242, Name = "Afghanistan", Code="AFG"});
-
-             
-            return list;
-        }
+        }       
 
         public List<VehicleDTO> GetVehicles()
         {
@@ -62,21 +51,16 @@ namespace HRTourismApp.Services
         //TODO:Singleton olacak
         public List<CountryDTO> GetCountry()
         {
-#if DEBUG
-            return getCountryMockData();
-#else
-            if (FileIOHelper.FileExists(_countryFileName) == false)
-                UpdateCountries();
+            CountryService countries = new CountryService();
             try
             {
-                var taskResponse = Helpers.FileIOHelper.ReadData(_countryFileName);
-                return JsonConvert.DeserializeObject<List<CountryDTO>>(taskResponse.Result);                
+                return countries.GetAllCountries();
             }
             catch (StackOverflowException ex)
             {
                 throw (ex);
             }
-#endif
+
         }
         public List<UserDTO> GetDrivers()
         {
@@ -140,27 +124,7 @@ namespace HRTourismApp.Services
                 throw (ex);
             }
         }
-
-        public async void UpdateCountries()
-        {
-            try
-            {
-                endpoint += "api/Country";
-                _cancellationToken = new CancellationToken();
-                var taskResponse = BaseAPIService.Get<List<CountryDTO>>(endpoint, _cancellationToken);               
-
-                var data = JsonConvert.SerializeObject(taskResponse.Result);
-                if (data != null)
-                {
-                    FileIOHelper.DeleteFile(_countryFileName);
-                    await FileIOHelper.SaveData(data.ToString(), _countryFileName);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw (ex);
-            }
-        }
+       
 
     }
 

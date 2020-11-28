@@ -20,19 +20,6 @@ namespace HRTourismApp.Views.Settings
             _lookupsService = new LookupsService();
             InitializeComponent();
         }
-        private void btnCountry_Clicked(object sender, EventArgs e)
-        {
-            try
-            {
-                _lookupsService.UpdateCountries();
-                MessageNotificationHelper.ShowMessageFail("Ulke bilgileri basariyla guncellendi");
-            }
-            catch(Exception ex)
-            {
-                MessageNotificationHelper.ShowMessageFail(ex.Message);
-            }
-        }
-
         private void btnVehicle_Clicked(object sender, EventArgs e)
         {
             _lookupsService.UpdateVehicles();

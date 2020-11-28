@@ -16,19 +16,34 @@
         HasUnevenRows="true">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Margin="10">
-                            <Label Text="{Binding Id}" />
-                            <Label Text="{Binding JourneyId}" />
-                            <Label Text="{Binding LastName}" />
-                            <Label Text="{Binding FirstName}" />
-                            <Label Text="{Binding DocumentNo}" />
-                            <Label Text="{Binding Phone}" />
-                            <Label Text="{Binding CountryCode}" />
-                            <Label Text="{Binding Gender}" />
-                            <Label Text="{Binding HesKodu}" />                            
-                        </StackLayout>
-                    </ViewCell>
+                    <ViewCell >
+                        <ViewCell.View>
+                            <Grid >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="0.5"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding FirstName}" Grid.Row="0" Grid.Column="0"  FontSize="Large"/>
+                                <Label Text="{Binding LastName}" Grid.Row="0" Grid.Column="1"  FontSize="Large" />
+                                <Label Text="{Binding Gender}" Grid.Row="0" Grid.Column="2" />
+                                <Label Text="{Binding CountryCode}" Grid.Row="1" Grid.Column="0" FontAttributes="Italic"/>
+                                <Label Text="{Binding DocumentNo}" Grid.Row="1" Grid.Column="1" FontAttributes="Italic"/>
+                                <Label Text="{Binding Phone}" Grid.Row="1" Grid.Column="2" FontAttributes="Italic"/>
+
+                                <BoxView Grid.Row="2"
+                             Grid.ColumnSpan="3"                             
+                             BackgroundColor="LightGray"/>
+
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>                   
+                   
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
