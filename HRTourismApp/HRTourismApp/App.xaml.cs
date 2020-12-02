@@ -20,15 +20,10 @@ namespace HRTourismApp
             InitializeComponent();
             GoogleMapsApiService.Initialize(Services.GoogleMaps.Constants.GoogleMapsApiKey);
 
-#if DEBUG           
-
-            App.User = new UserDTO { Id = 55, CompanyId = 8, CompanyName = "Firma 4 Yolcu Tasimacili", Email = "olcayyf @hotmail.com", NameSurname = "Feryat Olcay", Phone = "05378217440", RoleId = 1 };
-            App.IsUserLoggedIn = true;
-#else
-            MainPage = new NavigationPage(new LoginPage());
-
-#endif
-            MainPage = new NavigationPage(new MainMenu());
+            if (App.IsUserLoggedIn == true)
+                MainPage = new NavigationPage(new MainMenu());
+            else
+                MainPage = new NavigationPage(new LoginPage());
 
         }
 

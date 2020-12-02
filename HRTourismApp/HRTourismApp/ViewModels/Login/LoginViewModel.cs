@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using HRTourismApp.Views;
 using HRTourismApp.Models;
 using HRTourismApp.Services;
+using HRTourismApp.Helpers;
 
 namespace HRTourismApp.ViewModels
 {
@@ -61,6 +62,10 @@ namespace HRTourismApp.ViewModels
                     //App.User = new UserDTO { Id = 55, CompanyId = 8, CompanyName = "Firma 4 Yolcu Tasimacili", Email = "olcayyf @hotmail.com", NameSurname = "Feryat Olcay", Phone = "05378217440", RoleId = 1 };
 
                     App.Current.MainPage = new NavigationPage(new MainMenu());
+                }
+                else
+                {
+                    MessageNotificationHelper.ShowMessageError("Telefon yada sifre hatali. Lutfen bilgilerinizi kontrol edip tekrar deneyiniz.");
                 }
             }
 

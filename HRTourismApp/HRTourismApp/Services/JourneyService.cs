@@ -12,7 +12,7 @@ namespace HRTourismApp.Services
 {
     public class JourneyService 
     {
-        private string endpoint = Constants.BASE_API_URL + "api/Journey";
+        private string _endpoint;
         private static CancellationToken _cancellationToken; // TODO: online ortamda static ozelligini kaldirip dene
 
         private Task<List<JourneyDTO>> getMockData()
@@ -31,7 +31,7 @@ namespace HRTourismApp.Services
                 To = "Mecidiyeköy, Şişli/İstanbul",
                 StartDate = Convert.ToDateTime("2020-11-11 17:00:00"),
                 FinishDate = Convert.ToDateTime("2020-11-11 17:30:00"),
-                Fees = 250
+                Fees = 275
             });
             list.Add(new JourneyDTO
             {
@@ -45,8 +45,163 @@ namespace HRTourismApp.Services
                 To = "Mecidiyeköy, Şişli/İstanbul",
                 StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
                 FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
-                Fees = 250
+                Fees = 285
             });
+            list.Add(new JourneyDTO
+            {
+                Id = 71,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 KL23",
+                CompanyId = 8,
+                From = "Şirinevler, Bahçelievler/İstanbul",
+                To = "Mecidiyeköy, Şişli/İstanbul",
+                StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
+                FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
+                Fees = 290
+            });
+            list.Add(new JourneyDTO
+            {
+                Id = 72,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 KL23",
+                CompanyId = 8,
+                From = "Şirinevler, Bahçelievler/İstanbul",
+                To = "Mecidiyeköy, Şişli/İstanbul",
+                StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
+                FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
+                Fees = 300
+            });
+            list.Add(new JourneyDTO
+            {
+                Id = 73,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 KL23",
+                CompanyId = 8,
+                From = "Şirinevler, Bahçelievler/İstanbul",
+                To = "Mecidiyeköy, Şişli/İstanbul",
+                StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
+                FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
+                Fees = 310
+            });
+            list.Add(new JourneyDTO
+            {
+                Id = 74,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 KL23",
+                CompanyId = 8,
+                From = "Şirinevler, Bahçelievler/İstanbul",
+                To = "Mecidiyeköy, Şişli/İstanbul",
+                StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
+                FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
+                Fees = 315
+            });
+            list.Add(new JourneyDTO
+            {
+                Id = 75,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 KL23",
+                CompanyId = 8,
+                From = "Şirinevler, Bahçelievler/İstanbul",
+                To = "Mecidiyeköy, Şişli/İstanbul",
+                StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
+                FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
+                Fees = 345
+            });
+            list.Add(new JourneyDTO
+            {
+                Id = 76,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 KL23",
+                CompanyId = 8,
+                From = "Şirinevler, Bahçelievler/İstanbul",
+                To = "Mecidiyeköy, Şişli/İstanbul",
+                StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
+                FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
+                Fees = 370
+            });
+            list.Add(new JourneyDTO
+            {
+                Id = 77,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 KL23",
+                CompanyId = 8,
+                From = "Şirinevler, Bahçelievler/İstanbul",
+                To = "Bakırköy Özgürlük Meydanı, Zuhuratbaba, Bakırköy/İstanbul",
+                StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
+                FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
+                Fees = 390
+            });
+            list.Add(new JourneyDTO
+            {
+                Id = 78,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 KL23",
+                CompanyId = 8,
+                From = "Bakırköy Özgürlük Meydanı, Zuhuratbaba, Bakırköy/İstanbul",
+                To = "Mecidiyeköy, Şişli/İstanbul",
+                StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
+                FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
+                Fees = 400
+            });
+            list.Add(new JourneyDTO
+            {
+                Id = 80,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 KL23",
+                CompanyId = 8,
+                From = "Şirinevler, Bahçelievler/İstanbul",
+                To = "Büyükeceli, Büyükeceli Köyü Yolu, Gülnar/Mersin",
+                StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
+                FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
+                Fees = 420
+            });
+            list.Add(new JourneyDTO
+            {
+                Id = 81,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 KL23",
+                CompanyId = 8,
+                From = "Büyükeceli, Büyükeceli Köyü Yolu, Gülnar/Mersin",
+                To = "Mecidiyeköy, Şişli/İstanbul",
+                StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
+                FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
+                Fees = 450
+            });
+            list.Add(new JourneyDTO
+            {
+                Id = 82,
+                DriverId = 129,
+                DriverName = "Surucu 1",
+                VehicleId = 35,
+                VehiclePlaque = "34 KL23",
+                CompanyId = 8,
+                From = "Bakırköy Özgürlük Meydanı, Zuhuratbaba, Bakırköy/İstanbul",
+                To = "Mecidiyeköy, Şişli/İstanbul",
+                StartDate = Convert.ToDateTime("2020-11-13 10:30:30"),
+                FinishDate = Convert.ToDateTime("2020-11-13 11:30:50"),
+                Fees = 450
+            });
+
             return Task.FromResult(list);
         }
 
@@ -55,35 +210,34 @@ namespace HRTourismApp.Services
             _cancellationToken = new CancellationToken();
         }
 
-        public Task<List<JourneyDTO>> GetAllJourney(/*Pagination pagination = null,*/)
-        {
-#if DEBUG
-            return getMockData();
-#else
+        public Task<List<JourneyDTO>> GetAllJourney(Pagination pagination = null, int driverId=0)
+        {            
             try
             {
-                endpoint = Constants.BASE_API_URL + "api/company/" + App.User.CompanyId + "/Journeys";
-                /*
-                if (pagination != null)
-                   endpoint = EndpointHelper.Pagination(endpoint, pagination);
-                */
+                _endpoint = Constants.BASE_API_URL + "api/Journeys/" + App.User.CompanyId ;
+                if (driverId != 0)
+                    _endpoint += "/"+ driverId;
 
-                var responseTask = BaseAPIService.Get<List<JourneyDTO>>(endpoint, _cancellationToken);
+                if (pagination != null)
+                   _endpoint = EndpointHelper.Pagination(_endpoint, pagination);
+                
+
+                var responseTask = BaseAPIService.Get<List<JourneyDTO>>(_endpoint, _cancellationToken);
                 return Task.FromResult(responseTask.Result);
             }
             catch (Exception ex)
             {
                 throw (ex);
             } 
-#endif
+
         }
 
         public Task<int> DeleteAsync(long id, string cancelDesc)
         {
             try
             {
-                endpoint += "?id=" + id + " & userId = " + App.User.Id.ToString() + " & cancelDesc = '" + cancelDesc + "'";
-                var responseTask = BaseAPIService.Delete<APIResponse>(endpoint, _cancellationToken);
+                _endpoint = Constants.BASE_API_URL + "api/Journey"+ "?id=" + id + " & userId = " + App.User.Id.ToString() + " & cancelDesc = '" + cancelDesc + "'";
+                var responseTask = BaseAPIService.Delete<APIResponse>(_endpoint, _cancellationToken);
                 return Task.FromResult(1);
             }
             catch (Exception ex)
@@ -96,8 +250,8 @@ namespace HRTourismApp.Services
         {
             try
             {
-                endpoint += "/" + id;
-                var responseTask = BaseAPIService.Get<JourneyDTO>(endpoint, _cancellationToken);
+                _endpoint = Constants.BASE_API_URL + "/" + id;
+                var responseTask = BaseAPIService.Get<JourneyDTO>(_endpoint, _cancellationToken);
                 return Task.FromResult(responseTask.Result);
             }
             catch (Exception ex)
@@ -109,11 +263,13 @@ namespace HRTourismApp.Services
         public Task<int> SaveAsync(JourneyDTO journey)
         {
             try
-            {
+            {                
                 journey.UserId = App.User.Id;
-                var response = BaseAPIService.Post<APIResponse>(endpoint, journey, _cancellationToken);
+                _endpoint = Constants.BASE_API_URL + "api/Journey";
+                var response = BaseAPIService.Post<APIResponse>(_endpoint, journey, _cancellationToken);
                 response.Wait();
-                if (response.Result != null)
+                var xx = response.Status;
+                if (response.IsCompleted)                                   
                     return Task.FromResult(1);
                 else
                     return Task.FromResult(0);
@@ -129,8 +285,8 @@ namespace HRTourismApp.Services
             try
             {
                 journey.UserId = App.User.Id;
-                endpoint += "/" + journey.Id;
-                var response = BaseAPIService.Put<APIResponse>(endpoint, journey, _cancellationToken);
+                _endpoint = Constants.BASE_API_URL + "api/Journey/" + journey.Id;
+                var response = BaseAPIService.Put<APIResponse>(_endpoint, journey, _cancellationToken);
                 response.Wait();
                 if (response.Result != null)
                     return Task.FromResult(1);

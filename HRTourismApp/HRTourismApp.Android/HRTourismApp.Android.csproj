@@ -126,10 +126,16 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\camera.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\location.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\datetime.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadUnhandledDeviceExceptionHRTourismAppAndroidHideInfoBar="True" XamarinHotReloadDebuggerTimeoutExceptionHRTourismAppAndroidHideInfoBar="True" />
+      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionHRTourismAppAndroidHideInfoBar="True" XamarinHotReloadUnhandledDeviceExceptionHRTourismAppAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

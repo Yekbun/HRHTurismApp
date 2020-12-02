@@ -90,6 +90,9 @@ namespace HRTourismApp.ViewModels.Journey
         {
             try
             {
+                Journey.StartDate = Journey.StartDate.Date + Journey.StartDateTime;
+                Journey.FinishDate = Journey.FinishDate.Date + Journey.FinishDateTime;
+
                 int createdId = 0;
                 if (Journey.CompanyId == 0)                
                     Journey.CompanyId = App.User.CompanyId;
@@ -104,14 +107,14 @@ namespace HRTourismApp.ViewModels.Journey
                     MessageNotificationHelper.ShowMessageSuccess("Lütfen bitiş yeri bilgisini kontrol edin. Girdiginiz değer yetersiz.");
                     return;
                 }
-                if (Journey.StartDate >DateTime.Now)
+                if (Journey.StartDate < DateTime.Now)
                 {
-                    MessageNotificationHelper.ShowMessageSuccess("Başlangıç tarihi bugünden küçük olamaz.");
+                    MessageNotificationHelper.ShowMessageSuccess("Başlangıç tarihi bugünden suandan en az 1 saat once olmalidir.");
                     return;
                 }
-                if (Journey.FinishDate > DateTime.Now)
+                if (Journey.FinishDate < Journey.StartDate)
                 {
-                    MessageNotificationHelper.ShowMessageSuccess("Bitiş tarihi bugünden küçük olamaz.");
+                    MessageNotificationHelper.ShowMessageSuccess("Bitiş tarihi Başlangıç tarihinden once olamaz.");
                     return;
                 }
                 if (Journey.DriverId == 0)

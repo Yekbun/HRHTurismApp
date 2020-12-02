@@ -11,7 +11,7 @@ namespace HRTourismApp.Services
 {
     public class PassengerService
     {
-        private string endpoint = Constants.BASE_API_URL;
+        private string _endpoint = Constants.BASE_API_URL;
         private static CancellationToken _cancellationToken;
 
         private Task<List<PassengerDTO>> getMockData()
@@ -20,7 +20,16 @@ namespace HRTourismApp.Services
 
             list.Add(new PassengerDTO
             {
-                Id = 41, JourneyId = 69, LastName = "Olcay", FirstName = "Feryat", HesKodu="HES-1", Phone = "0212535345", CountryCode = "TUR", DocumentNo="U15523125", Gender = "F" ,SeatNumber=1    
+                Id = 41,
+                JourneyId = 69,
+                LastName = "Olcay",
+                FirstName = "Feryat",
+                HesKodu = "HES-1",
+                Phone = "0212535345",
+                CountryCode = "TUR",
+                DocumentNo = "U15523125",
+                Gender = "F",
+                SeatNumber = 1
             });
             list.Add(new PassengerDTO
             {
@@ -66,29 +75,26 @@ namespace HRTourismApp.Services
         }
 
         public PassengerService()
-        {            
+        {
             _cancellationToken = new CancellationToken();
         }
         public Task<List<PassengerDTO>> GetAllPassengerAsync(long journeyId)
         {
-#if DEBUG
-            return getMockData();
-#else
-            endpoint = Constants.BASE_API_URL + "api/Journey/" + journeyId + "/Passengers";
-            var responseTask = BaseAPIService.Get<List<PassengerDTO>>(endpoint, _cancellationToken);
+            _endpoint = Constants.BASE_API_URL + "api/Journey/" + journeyId + "/Passengers";
+            var responseTask = BaseAPIService.Get<List<PassengerDTO>>(_endpoint, _cancellationToken);
             return Task.FromResult(responseTask.Result);
-#endif
+
         }
 
         public Task<PassengerDTO> GetPassengerAsync(long id)
         {
             try
             {
-                endpoint += "Passenger/" + id.ToString();
-                var responseTask = BaseAPIService.Get<PassengerDTO>(endpoint, _cancellationToken);
+                _endpoint = Constants.BASE_API_URL + "Passenger/" + id.ToString();
+                var responseTask = BaseAPIService.Get<PassengerDTO>(_endpoint, _cancellationToken);
                 return Task.FromResult(responseTask.Result);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw (ex);
             }
@@ -99,12 +105,12 @@ namespace HRTourismApp.Services
             try
             {
                 _cancellationToken = new CancellationToken();
-                endpoint += "api/Passenger";
+                _endpoint = Constants.BASE_API_URL + "api/Passenger";
                 passenger.UserId = App.User.Id;
-                var responseTask = BaseAPIService.Post<APIResponse>(endpoint, passenger, _cancellationToken);
-                responseTask.Wait();              
+                var responseTask = BaseAPIService.Post<APIResponse>(_endpoint, passenger, _cancellationToken);
+                responseTask.Wait();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw (ex);
             }
@@ -112,9 +118,9 @@ namespace HRTourismApp.Services
         }
 
         public Task<int> DeleteAsync(long id)
-        {            
-            endpoint += "api/Passenger?id=" + id.ToString() + "&userId=" + App.User.Id;
-            var responseTask = BaseAPIService.Delete<APIResponse>(endpoint, _cancellationToken);
+        {
+            _endpoint = Constants.BASE_API_URL + "api/Passenger?id=" + id.ToString() + "&userId=" + App.User.Id;
+            var responseTask = BaseAPIService.Delete<APIResponse>(_endpoint, _cancellationToken);
             return Task.FromResult(1);
         }
     }

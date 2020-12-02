@@ -6,7 +6,7 @@ namespace HRTourismApp.Helpers
 {
     public class Constants
     {
-        public static string BASE_API_URL = "https://hrtourismuetdswebuiapi20201112113059.azurewebsites.net/";
+        public static string BASE_API_URL = "http://192.168.7.183:45456/";
         public const int CURRENT_TIMEOUT = 20;          // In seconds        
     }
 }

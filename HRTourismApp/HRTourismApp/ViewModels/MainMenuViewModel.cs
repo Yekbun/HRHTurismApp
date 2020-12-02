@@ -13,6 +13,9 @@ namespace HRTourismApp.ViewModels
 {
     public class MainMenuViewModel : BaseViewModel
     {
+        public string UserName { get; set; }
+        public string CompanyName { get; set; }
+        public string RoleName { get; set; }
         public async void btnBooking_clicked(object sender, EventArgs e)
         {
            await NavigationHelper.PushAsyncSingle(new MediaPage());

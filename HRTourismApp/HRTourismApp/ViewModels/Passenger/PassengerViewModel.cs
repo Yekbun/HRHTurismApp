@@ -67,27 +67,27 @@ namespace HRTourismApp.ViewModels.Passenger
             {            
                 if (Passenger.FirstName == "")
                 {
-                    MessageNotificationHelper.ShowMessageFail("Yolcu adı boş olamaz.");
+                    MessageNotificationHelper.ShowMessageError("Yolcu adı boş olamaz.");
                 }
                 if (Passenger.FirstName == "")
                 {
-                    MessageNotificationHelper.ShowMessageFail("Yolcu soyadı boş olamaz.");
+                    MessageNotificationHelper.ShowMessageError("Yolcu soyadı boş olamaz.");
                 }
                 if (Passenger.JourneyId == 0)
                 {
-                    MessageNotificationHelper.ShowMessageFail("JourneyId bulunamadı.");
+                    MessageNotificationHelper.ShowMessageError("JourneyId bulunamadı.");
                 }
                 if (Passenger.CountryCode == "")
                 {
-                    MessageNotificationHelper.ShowMessageFail("Ülke bilgisi boş olamaz.");
+                    MessageNotificationHelper.ShowMessageError("Ülke bilgisi boş olamaz.");
                 }
                 if (Passenger.DocumentNo == "")
                 {
-                    MessageNotificationHelper.ShowMessageFail("Pasaport/Id bilgisi boş olamaz.");
+                    MessageNotificationHelper.ShowMessageError("Pasaport/Id bilgisi boş olamaz.");
                 }
                 if (Passenger.Gender == "")
                 {
-                    MessageNotificationHelper.ShowMessageFail("Cinsiyet bilgisi boş olamaz.");
+                    MessageNotificationHelper.ShowMessageError("Cinsiyet bilgisi boş olamaz.");
                 }
 
                 int createdId = await _passengerService.SaveAsync(Passenger);
@@ -98,7 +98,7 @@ namespace HRTourismApp.ViewModels.Passenger
                 }
                 else
                 {
-                    MessageNotificationHelper.ShowMessageFail("Beklenmedik bir hata oluştu.");
+                    MessageNotificationHelper.ShowMessageError("Beklenmedik bir hata oluştu.");
                 }               
             }
             catch (MobileException exception)

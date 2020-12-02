@@ -10,7 +10,7 @@ namespace HRTourismApp.Services
 {
        public class LookupsService
     {
-        private string endpoint = Constants.BASE_API_URL;
+        private string _endpoint = Constants.BASE_API_URL;
         private static CancellationToken _cancellationToken;        
         private const string _vehicleFileName = "Vehicle.json";
         private const string _driversFileName = "Driver.json";
@@ -32,9 +32,7 @@ namespace HRTourismApp.Services
 
         public List<VehicleDTO> GetVehicles()
         {
-#if DEBUG
-            return getVehicleMockData();
-#else
+
             if (FileIOHelper.FileExists(_vehicleFileName) == false)
                 UpdateVehicles();
             try
@@ -46,7 +44,7 @@ namespace HRTourismApp.Services
             {
                 throw (ex);
             }
-#endif
+
         }
         //TODO:Singleton olacak
         public List<CountryDTO> GetCountry()
@@ -64,15 +62,12 @@ namespace HRTourismApp.Services
         }
         public List<UserDTO> GetDrivers()
         {
-#if DEBUG
 
-            return getDriverMockData();
-#else
             if (FileIOHelper.FileExists(_driversFileName) == false)
                 UpdateDrivers();
 
             try
-            {                
+            {
                 var taskResponse = Helpers.FileIOHelper.ReadData(_driversFileName);
                 return JsonConvert.DeserializeObject<List<UserDTO>>(taskResponse.Result);
             }
@@ -80,16 +75,16 @@ namespace HRTourismApp.Services
             {
                 throw (ex);
             }
-#endif
+
         }
 
         public async void UpdateVehicles()
         {
             try
             {
-                endpoint = Constants.BASE_API_URL + "api/Company/" + App.User.CompanyId.ToString() + "/Vehicles";
+                _endpoint = Constants.BASE_API_URL + "api/Company/" + App.User.CompanyId.ToString() + "/Vehicles";
                 _cancellationToken = new CancellationToken();
-                var taskResponse = BaseAPIService.Get<List<VehicleDTO>>(endpoint, _cancellationToken);
+                var taskResponse = BaseAPIService.Get<List<VehicleDTO>>(_endpoint, _cancellationToken);
 
                 var data = JsonConvert.SerializeObject(taskResponse.Result);
                 if (data != null)
@@ -108,9 +103,9 @@ namespace HRTourismApp.Services
         {
             try
             {
-                endpoint += "api/Company/" + App.User.CompanyId.ToString() + "/Drivers";
+                _endpoint = Constants.BASE_API_URL + "api/Company/" + App.User.CompanyId.ToString() + "/Drivers";
                 _cancellationToken = new CancellationToken();
-                var taskResponse = BaseAPIService.Get<List<UserDTO>>(endpoint, _cancellationToken);
+                var taskResponse = BaseAPIService.Get<List<UserDTO>>(_endpoint, _cancellationToken);
 
                 var data = JsonConvert.SerializeObject(taskResponse.Result);
                 if (data != null)
@@ -124,8 +119,5 @@ namespace HRTourismApp.Services
                 throw (ex);
             }
         }
-       
-
     }
-
 }

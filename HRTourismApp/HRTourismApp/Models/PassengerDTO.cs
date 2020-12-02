@@ -18,6 +18,16 @@ namespace HRTourismApp.Models
         public string Phone { get; set; }
         public string DocumentNo { get; set; }
         public string Gender { get; set; }
+        public string GenderStr
+        {
+            get
+            {
+                if (Gender == "F")
+                    return "Kadin";
+                else
+                    return "Erkek";
+            }
+        }
         public int SeatNumber { get; set; }
         public int RecordStatus { get; set; }
         public string HesKodu { get; set; }

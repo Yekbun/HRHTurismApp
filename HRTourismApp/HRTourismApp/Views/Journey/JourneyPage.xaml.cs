@@ -29,15 +29,18 @@ namespace HRTourismApp.Views.Journey
             btnSave.IsVisible = true;
             btnCancel.IsVisible = false;
             btnUpdate.IsVisible = false;       
-            entDescription.IsVisible = false;
+            entDescription.IsVisible = false;            
 
             _journeyViewModel.Journey.StartDate = DateTime.Now;
             _journeyViewModel.Journey.FinishDate = DateTime.Now;
-            tpStartDate.Time = DateTime.Now.TimeOfDay;
-            tpFinishDate.Time = DateTime.Now.TimeOfDay;
+            _journeyViewModel.Journey.StartDateTime = DateTime.Now.AddHours(2).TimeOfDay;
+            _journeyViewModel.Journey.FinishDateTime = DateTime.Now.AddHours(3).TimeOfDay;
 
             BindingContext = _journeyViewModel;
-            //TODO:Eger sofor ise sofor listesi cikmayacak
+            if (App.User.RoleId == 3)
+                pickerDriver.IsVisible = false;
+            else
+                pickerDriver.IsVisible = true;
         }
 
         public JourneyPage(JourneyDTO journey)
@@ -61,11 +64,19 @@ namespace HRTourismApp.Views.Journey
             tpFinishDate.Time = _journeyViewModel.Journey.FinishDate.TimeOfDay;
            
             BindingContext = _journeyViewModel;
-            for (int x = 0; x < _journeyViewModel.DriverList.Count; x++)
+
+            if (App.User.RoleId == 3)
+                pickerDriver.IsVisible = false;
+            else
             {
-                if (_journeyViewModel.DriverList[x].Id == _journeyViewModel.Journey.DriverId)
+                pickerDriver.IsVisible = true;
+
+                for (int x = 0; x < _journeyViewModel.DriverList.Count; x++)
                 {
-                    pickerDriver.SelectedIndex = x;
+                    if (_journeyViewModel.DriverList[x].Id == _journeyViewModel.Journey.DriverId)
+                    {
+                        pickerDriver.SelectedIndex = x;
+                    }
                 }
             }
             for (int x = 0; x < _journeyViewModel.VehicleList.Count; x++)

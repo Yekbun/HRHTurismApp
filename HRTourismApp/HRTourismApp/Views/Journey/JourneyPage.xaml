@@ -97,15 +97,14 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>
-            <Label Text="Yolculuk Tarihleri"></Label>
-            <StackLayout Grid.Row="2" Orientation="Horizontal" Spacing="10"  Padding="5" IsVisible="{Binding ShowOthers}" >
+            </ListView>           
+            <StackLayout Grid.Row="2" Orientation="Horizontal" Spacing="10"  Padding="10" IsVisible="{Binding ShowOthers}" >
                 <DatePicker Date="{Binding Journey.StartDate}" VerticalOptions="CenterAndExpand"  Format="dd/MM/yyyy"/>
                 <TimePicker x:Name="tpStartDate" Time="{Binding Journey.StartDateTime}"  Format="HH:mm"/>
             </StackLayout>
-            <StackLayout Grid.Row="3" Orientation="Horizontal" Spacing="10"  Padding="5" IsVisible="{Binding ShowOthers}" >
+            <StackLayout Grid.Row="3" Orientation="Horizontal" Spacing="10"  Padding="10" IsVisible="{Binding ShowOthers}" >
                 <DatePicker Date="{Binding Journey.FinishDate}" Format="dd/MM/yyyy"/>
-                <TimePicker x:Name="tpFinishDate"  Format="HH:mm" />
+                <TimePicker x:Name="tpFinishDate"  Time="{Binding Journey.FinishDateTime}" Format="HH:mm" />
             </StackLayout>
             <StackLayout Grid.Row="4" Orientation="Vertical" Spacing="5"  Padding="5" IsVisible="{Binding ShowOthers}" >
                 <Picker Title="Sürücü Seçiniz"  
@@ -118,7 +117,7 @@
                     ItemsSource="{Binding VehicleList}"
                     ItemDisplayBinding="{Binding Plaque}"                                
                     SelectedIndexChanged="pickerVehicle_SelectedIndexChanged" />
-                <Entry Text="{Binding Journey.Fees}" Placeholder="Ücret" Keyboard="Numeric" FontSize="Medium"/>
+                <Entry x:Name="entFee" Text="{Binding Journey.Fees}" Placeholder="Ücret" Keyboard="Numeric" FontSize="Medium" HorizontalTextAlignment="End" />
                 <Entry x:Name="entDescription"  Text="{Binding Journey.Description}" Placeholder="Aciklama" FontSize="Medium" />
             </StackLayout>
             <Button x:Name="btnSave" Command="{Binding CreateCommand}" Text="Kaydet"/>

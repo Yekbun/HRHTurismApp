@@ -11,7 +11,7 @@ namespace HRTourismApp.Services
 {
     public class LoginService
     {
-        private string endpoint = Constants.BASE_API_URL;
+        private string _endpoint = Constants.BASE_API_URL;
         private CancellationToken _cancellationToken;
         public LoginService()
         {
@@ -25,8 +25,8 @@ namespace HRTourismApp.Services
             {
                 login.Password = login.Password;
                 _cancellationToken = new CancellationToken();
-                endpoint += "api/Login";
-                var postTask = BaseAPIService.Post<UserDTO>(endpoint, login, _cancellationToken);
+                _endpoint = Constants.BASE_API_URL + "api/Login";
+                var postTask = BaseAPIService.Post<UserDTO>(_endpoint, login, _cancellationToken);
                 postTask.Wait();
                 result = postTask.Result;
             }

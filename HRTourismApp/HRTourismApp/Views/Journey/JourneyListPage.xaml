@@ -19,21 +19,47 @@
                      SeparatorVisibility="None"
         BackgroundColor="{ DynamicResource BasePageColor }"
         HasUnevenRows="true">
-            <ListView.ItemTemplate>
+            <ListView.ItemTemplate >
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Margin="10">
-                            <Label Text="{Binding Id}" />
-                            <Label Text="{Binding From}" />
-                            <Label Text="{Binding To}" />
-                            <Label Text="{Binding StartDate}" />
-                            <Label Text="{Binding FinishDate}" />
-                            <Label Text="{Binding Fees}" />
-                            <Label Text="{Binding RecordStatusStr}" />
-                            <Button Text="Yolcular" Command="{Binding ShowPassengers}" />
-                           
-                        </StackLayout>
+                        <ViewCell.View>
+                            <Grid BackgroundColor="White" Padding="5" Margin="5" VerticalOptions="FillAndExpand">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="22*"/>
+                                    <ColumnDefinition Width="22*"/>
+                                    <ColumnDefinition Width="22*"/>
+                                    <ColumnDefinition Width="22*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="location" Grid.Row="0" Grid.Column="0"/>
+                                <Label Text="{Binding From}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" FontAttributes="Italic" />
+                                <Label Text="{Binding To}" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" FontAttributes="Italic"/>
+                                <Image Source="datetime.png" Grid.Row="1" Grid.Column="0"   />
+                                <Label Text="{Binding StartDate, StringFormat='{0:dd/MM/yyyy HH:mm}'}" Grid.Row="1"  Grid.Column="1" Grid.ColumnSpan="2" />
+                                <Label Text="{Binding FinishDate, StringFormat='{0:d/MM/yyyy HH:mm}'}" Grid.Row="1"  Grid.Column="3" Grid.ColumnSpan="2" />
+
+                                <Label Text="{Binding Fees}" Grid.Row="2" Grid.Column="1"/>
+                                <Label Text="{Binding VehiclePlaque}" Grid.Row="2" Grid.Column="2" />
+                                <Label Text="{Binding RecordStatusStr}" Grid.Row="2" Grid.Column="3" />
+
+                                <Button Text="Yolcular" Command="{Binding ShowPassengers}" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" />
+                                <Button Text="Bildir" BackgroundColor="#70c405" Command="{Binding ShowPassengers}" Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2"  />
+
+                                <BoxView Grid.Row="3" Grid.Column="0"  Grid.ColumnSpan="3" BackgroundColor="Blue" HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
+                                
+                                
+                                <!--Your stuff here!-->
+                            </Grid>
+                            
+                        </ViewCell.View>
                     </ViewCell>
+                    
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>        

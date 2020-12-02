@@ -54,12 +54,16 @@ namespace HRTourismApp.ViewModels.Journey
             {
                 throw (ex);
             }
-        }   
+        }
         public async Task<List<JourneyDTO>> GetAllJourney()
         {
             try
             {
-                _journeyList = await journeyService.GetAllJourney();
+                if (App.User.RoleId == 3)
+                    _journeyList = await journeyService.GetAllJourney(null,App.User.Id);
+                else
+                    _journeyList = await journeyService.GetAllJourney();
+
                 foreach (var item in _journeyList)
                 {
                     if (item.RecordStatus == 0)
@@ -79,25 +83,10 @@ namespace HRTourismApp.ViewModels.Journey
                 }
                 return _journeyList;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw (ex);
             }
-            /*
-            HRTourismApp.APIServices.APIResponse apiResponse = await BookingService.DeleteBooking(0);
-            if (apiResponse != null && apiResponse.Success)
-            {
-                MessageNotificationHelper.ShowMessageSuccess("Booking has been deleted");
-            }
-            else
-            {
-                if (apiResponse.Messages != null)
-                {
-                    string message = apiResponse.Messages.FirstOrDefault();
-
-                    MessageNotificationHelper.ShowMessageFail(message);
-                }
-            }*/
         }
         public async void GetSelectedJourney(JourneyDTO journey)
         {
